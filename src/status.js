@@ -45,7 +45,7 @@ async function run() {
     const s = $('[data-k="slot"] .v'); s.className = 'v mono ok'; countTo(s, j.slot, n => int(n), 1200); R.slot = 'ok';
     for (const k of ['ring', 'registry', 'tree']) { const a = j[k] || {}; setCheck(k, a.ok ? 'live' : 'not found', a.ok ? 'ok' : 'bad', a.address ? a.address.slice(0, 6) + '…' + a.address.slice(-4) : ''); }
   } catch (e) { for (const k of ['slot', 'ring', 'registry', 'tree']) setCheck(k, 'offline', 'bad', 'retrying'); }
-  try { const j = await getJSON('/api/ring', 12000); setCheck('ringtx', int(j.hour), 'ok', 'transactions, last hour'); } catch (e) { setCheck('ringtx', 'unread', 'bad', 'the Ring could not be read'); }
+  try { const j = await getJSON('/api/ring', 25000); setCheck('ringtx', int(j.hour), 'ok', 'transactions, last hour'); } catch (e) { setCheck('ringtx', 'unread', 'bad', 'the Ring could not be read'); }
   try { const v = await getJSON('/api/vault', 9000); setCheck('vault', v.open ? 'open' : 'closed', v.open ? 'ok' : 'wait', v.open ? 'taking deposits' : 'opens once funded and tested live'); } catch (e) { setCheck('vault', 'unread', 'bad', ''); }
   await routes();
   $('#lastAt').textContent = new Date().toLocaleTimeString([], { hour12: false });

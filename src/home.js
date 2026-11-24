@@ -160,7 +160,7 @@ async function siteChecks() {
 }
 H.on('live', s => { const w = $('#bxWs'); w.textContent = s === 'live' ? 'streaming' : s === 'connecting' ? 'connecting' : 'reconnecting'; w.className = s === 'live' ? 'up' : ''; });
 async function ring() {
-  try { const j = await getJSON('/api/ring', 12000); countTo($('#bxRing'), j.hour, v => int(v)); countTo($('[data-s="ring"]'), j.hour, v => int(v)); }
+  try { const j = await getJSON('/api/ring', 25000); countTo($('#bxRing'), j.hour, v => int(v)); countTo($('[data-s="ring"]'), j.hour, v => int(v)); }
   catch (e) { $('#bxRing').textContent = '—'; }
 }
 async function vault() {

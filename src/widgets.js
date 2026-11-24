@@ -67,7 +67,7 @@ export async function fundingHistory(coin, days = 7) {
 // ---------- the Ring: counts, the latest signatures, and its activity hour by hour ----------
 export async function ringPanel(el, chart) {
   try {
-    const j = await getJSON('/api/ring', 12000);
+    const j = await getJSON('/api/ring', 25000);
     const q = k => el.querySelector(`[data-r="${k}"]`);
     q('hour') && countTo(q('hour'), j.hour, v => int(v));
     q('day') && (q('day').textContent = int(j.day) + (j.capped ? '+' : ''));
