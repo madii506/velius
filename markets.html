@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VELIUS</title>
+<meta name="description" content="Every perp on Hyperliquid, live: a market map, prices, funding, open interest, charts and order books, streamed to your browser.">
+<meta name="theme-color" content="#07070b">
+<meta property="og:title" content="VELIUS · Markets">
+<meta property="og:description" content="Every perp on Hyperliquid, live.">
+<meta property="og:image" content="https://velius.vercel.app/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://velius.vercel.app/assets/img/og.jpg">
+<link rel="icon" href="/assets/img/favicon.svg?v=2" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png?v=2" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=2">
+<link rel="preload" href="/assets/fonts/disp-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/base.css?v=3">
+<link rel="stylesheet" href="/assets/css/site.css?v=3">
+<link rel="stylesheet" href="/assets/css/markets.css?v=3">
+</head>
+<body class="mkpage">
+<!-- header -->
+<div class="progress" id="progress"></div>
+<header class="top" id="top">
+  <a class="brand" href="/" aria-label="Velius home"><img src="/assets/img/mark.svg?v=1" alt="" width="28" height="28"><span class="word" id="brandWord">velius</span></a>
+  <nav class="nav" aria-label="Site">
+    <a href="/markets" data-p="markets" class="on" aria-current="page">Markets</a><a href="/desk" data-p="desk">Desk</a><a href="/privacy" data-p="privacy">Privacy</a><a href="/vault" data-p="vault">Vault</a><a href="/docs" data-p="docs">Docs</a><a href="/status" data-p="status">Status</a>
+  </nav>
+  <div class="tools">
+    <div class="wrap-w"><button class="chip" id="wBtn" type="button"><i class="dot"></i><span>Connect</span></button><div class="wmenu" id="wMenu"></div></div>
+    <a class="btn btn-w btn-sm hide-xs open-desk" href="/desk">Open desk</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button>
+  </div>
+</header>
+<div class="sheet" id="sheet">
+  <a href="/" data-p="home">Home</a><a href="/markets" data-p="markets" class="on" aria-current="page">Markets</a><a href="/desk" data-p="desk">Desk</a><a href="/privacy" data-p="privacy">Privacy</a><a href="/vault" data-p="vault">Vault</a><a href="/docs" data-p="docs">Docs</a><a href="/status" data-p="status">Status</a><a href="/desk" class="go">Open desk →</a>
+</div>
+<!-- /header -->
+
+<main>
+<section class="phero">
+  <canvas id="silk" aria-hidden="true"></canvas>
+  <div class="wrap wide">
+    <div class="crumb"><a href="/">Velius</a><i></i><span>Markets</span></div>
+    <h1 class="ph1">Every perp on Hyperliquid.<br> <em>One live map.</em></h1>
+    <p class="lede">Prices, funding and open interest for every market, streamed from Hyperliquid's public API straight to this page. Open any market for its chart, book and funding history.</p>
+    <div class="kpis" id="kpis">
+      <div class="kpi"><span>Perps listed</span><b data-k="n">—</b><small>on Hyperliquid</small></div>
+      <div class="kpi"><span>Volume, 24h</span><b data-k="vol">—</b><small>every perp</small></div>
+      <div class="kpi"><span>Open interest</span><b data-k="oi">—</b><small>every perp</small></div>
+      <div class="kpi"><span>Rising · falling</span><b data-k="br">—</b><div class="breadth" data-k="brb"><i style="width:50%"></i><i style="width:50%"></i></div></div>
+      <div class="kpi"><span>Funding, weighted by open interest</span><b class="mono" data-k="fw">—</b><small data-k="fwy">an hour</small></div>
+      <div class="kpi"><span>Next funding</span><b class="mono" data-k="next">—</b><small>paid every hour</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="mkx" id="explore">
+  <div class="wrap wide">
+    <div class="mk-tools" id="tools">
+      <label class="mk-q"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="M10.4 10.4l3.4 3.4"/></svg><input id="q" placeholder="Search markets" autocomplete="off" spellcheck="false" aria-label="Search markets"><kbd>/</kbd></label>
+      <div class="mk-f" id="filters">
+        <button class="on" data-f="all" type="button">All</button><button data-f="watch" type="button">Watchlist</button><button data-f="up" type="button">Rising</button><button data-f="down" type="button">Falling</button><button data-f="fpos" type="button">Longs pay</button><button data-f="fneg" type="button">Shorts pay</button><button data-f="lev" type="button">20x and up</button>
+      </div>
+      <div class="mk-v">
+        <div class="seg" id="metric" aria-label="Tile size"><button class="on" data-m="vol" type="button">Volume</button><button data-m="oi" type="button">Open interest</button></div>
+        <div class="seg" id="view" aria-label="View"><button class="on" data-v="map" type="button">Map</button><button data-v="table" type="button">Table</button></div>
+      </div>
+    </div>
+
+    <div class="mk-map" id="mapBox">
+      <div class="tmap" id="map"><div class="ph">Reading Hyperliquid…</div></div>
+      <div class="tip mtip" id="mapTip"></div>
+    </div>
+    <div class="mk-legend" id="legend"><span>Tile size: <b id="lgSize">24h volume</b></span><span class="scale"><em id="lgLo">−5%</em><i></i><em>0</em><i></i><em id="lgHi">+5%</em></span><span>colour: 24h change</span></div>
+
+    <div class="mk-tbl" id="tblBox" hidden>
+      <div class="mt-h" id="thead">
+        <span class="c-st"></span>
+        <button data-s="name" type="button">Market</button>
+        <button data-s="price" type="button">Price</button>
+        <button data-s="chg" type="button">24h</button>
+        <button data-s="vol" type="button" class="hide-s">Volume 24h</button>
+        <button data-s="oi" type="button" class="hide-s">Open interest</button>
+        <button data-s="funding" type="button" class="hide-m">Funding 1h</button>
+        <button data-s="apr" type="button" class="hide-m">Yearly</button>
+        <button data-s="prem" type="button" class="hide-m">Mark vs oracle</button>
+        <button data-s="maxLev" type="button" class="hide-m">Max</button>
+      </div>
+      <div id="rows"></div>
+    </div>
+    <div class="mk-foot"><span class="mono" id="count"></span><span class="live" id="live"><i></i><em>live</em></span></div>
+  </div>
+</section>
+
+<section class="band dim" id="movers">
+  <div class="wrap wide">
+    <div class="head rv"><span class="eb">Right now</span><h2>Who's moving, <em>who's paying.</em></h2></div>
+    <div class="movers rv">
+      <div class="mv spot"><div class="mv-h"><span>Rising most, 24h</span></div><div class="mv-l" id="mvUp"><div class="ph">Reading…</div></div></div>
+      <div class="mv spot"><div class="mv-h"><span>Falling most, 24h</span></div><div class="mv-l" id="mvDn"><div class="ph">Reading…</div></div></div>
+      <div class="mv spot"><div class="mv-h"><span>Most open interest</span></div><div class="mv-l" id="mvOi"><div class="ph">Reading…</div></div></div>
+      <div class="mv spot"><div class="mv-h"><span>Funding extremes, a year</span></div><div class="mv-l" id="mvF"><div class="ph">Reading…</div></div></div>
+    </div>
+    <p class="note rv">Movers count markets that traded over $250K in the last 24 hours. Yearly funding is the current hourly rate times 8,760, a pace, not a promise.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="pnext rv">
+      <a class="go" href="/desk"><span>Trade</span><b>Open the desk</b><em>Chart, book, a full ticket and your lines, on one screen.</em></a>
+      <a href="/docs#math"><span>Read next</span><b>The trading math</b><em>Margin, liquidation, funding and fees, worked on the live mark.</em></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="dr-back" id="drBack" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drName" hidden>
+  <div class="dr-h">
+    <span class="av" id="drAv">—</span>
+    <div class="dr-n"><b id="drName">—</b><small id="drSub"></small></div>
+    <button class="star" id="drStar" type="button" aria-label="Add to watchlist"></button>
+    <button class="dr-x" id="drX" type="button" aria-label="Close">×</button>
+  </div>
+  <div class="dr-body">
+    <div class="dr-px"><b class="mono" id="drPx">—</b><span class="mono" id="drChg"></span><a class="btn btn-w btn-sm" id="drTrade" href="/desk">Trade on the desk</a></div>
+    <div class="dr-stats" id="drStats"></div>
+    <div class="dr-sec"><div class="dr-sh"><span>Chart</span><div class="seg" id="drTf"><button data-tf="15m" type="button">15m</button><button class="on" data-tf="1h" type="button">1h</button><button data-tf="4h" type="button">4h</button><button data-tf="1d" type="button">1D</button></div></div><canvas id="drChart"></canvas></div>
+    <div class="dr-sec"><div class="dr-sh"><span>Funding, last 7 days</span><span class="mono" id="drFundN"></span></div><div class="cols" id="drFund"><canvas></canvas><div class="tip"></div></div><div class="cols-x"><span>7 days ago</span><span>now</span></div></div>
+    <div class="dr-two">
+      <div class="dr-sec"><div class="dr-sh"><span>Order book</span><span class="live" id="drLive"><i></i><em>live</em></span></div><div class="dr-book mono" id="drBook"><div class="ph">Reading the book…</div></div></div>
+      <div class="dr-sec"><div class="dr-sh"><span>Trades</span></div><div class="dr-trades mono" id="drTrades"><div class="ph">Waiting for trades…</div></div></div>
+    </div>
+    <div class="dr-sec"><div class="dr-sh"><span>Liquidation from the live mark</span><span class="mono">isolated</span></div><div class="dr-liq mono" id="drLiq"></div></div>
+  </div>
+</aside>
+<div class="sr" aria-live="polite" id="sr"></div>
+<script type="module" src="/assets/js/markets.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VELIUS</title>
+<meta name="description" content="Every source Velius depends on, checked live from your browser: Hyperliquid's API and stream, Solana, the Privacy Rings programs, the vault and each of Velius's own routes.">
+<meta name="theme-color" content="#07070b">
+<meta property="og:title" content="VELIUS · Status">
+<meta property="og:image" content="https://velius.vercel.app/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://velius.vercel.app/assets/img/og.jpg">
+<link rel="icon" href="/assets/img/favicon.svg?v=2" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png?v=2" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=2">
+<link rel="stylesheet" href="/assets/css/base.css?v=3">
+<link rel="stylesheet" href="/assets/css/site.css?v=3">
+</head>
+<body>
+<!-- header -->
+<div class="progress" id="progress"></div>
+<header class="top" id="top">
+  <a class="brand" href="/" aria-label="Velius home"><img src="/assets/img/mark.svg?v=1" alt="" width="28" height="28"><span class="word" id="brandWord">velius</span></a>
+  <nav class="nav" aria-label="Site">
+    <a href="/markets" data-p="markets">Markets</a><a href="/desk" data-p="desk">Desk</a><a href="/privacy" data-p="privacy">Privacy</a><a href="/vault" data-p="vault">Vault</a><a href="/docs" data-p="docs">Docs</a><a href="/status" data-p="status" class="on" aria-current="page">Status</a>
+  </nav>
+  <div class="tools">
+    <div class="wrap-w"><button class="chip" id="wBtn" type="button"><i class="dot"></i><span>Connect</span></button><div class="wmenu" id="wMenu"></div></div>
+    <a class="btn btn-w btn-sm hide-xs open-desk" href="/desk">Open desk</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button>
+  </div>
+</header>
+<div class="sheet" id="sheet">
+  <a href="/" data-p="home">Home</a><a href="/markets" data-p="markets">Markets</a><a href="/desk" data-p="desk">Desk</a><a href="/privacy" data-p="privacy">Privacy</a><a href="/vault" data-p="vault">Vault</a><a href="/docs" data-p="docs">Docs</a><a href="/status" data-p="status" class="on" aria-current="page">Status</a><a href="/desk" class="go">Open desk →</a>
+</div>
+<!-- /header -->
+
+<main>
+<section class="phero">
+  <canvas id="silk" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="crumb"><a href="/">Velius</a><i></i><span>Status</span></div>
+    <h1 class="ph1">Read just now, <em>from the source.</em></h1>
+    <p class="lede">Every source Velius depends on, checked from your browser as this page runs. Times are round trips from where you are.</p>
+    <div class="sum-line" id="sumLine"><i></i><b id="sumT">Checking…</b><span id="sumS"></span><button class="btn btn-g btn-sm" id="again" type="button">Check again</button></div>
+  </div>
+</section>
+
+<section class="band" id="sources">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">01 — Sources</span><h2>What the pages <em>stand on.</em></h2></div>
+    <div class="checks rv" id="grid">
+      <div class="ck spot" data-k="hl"><span>Hyperliquid API</span><b class="v mono">—</b><small>info, round trip from this page</small></div>
+      <div class="ck spot" data-k="ws"><span>Hyperliquid stream</span><b class="v mono">—</b><small>websocket</small></div>
+      <div class="ck spot" data-k="mk"><span>Perps listed</span><b class="v mono">—</b><small>on Hyperliquid</small></div>
+      <div class="ck spot" data-k="slot"><span>Solana slot</span><b class="v mono">—</b><small>mainnet</small></div>
+      <div class="ck spot" data-k="ring"><span>Privacy Rings program</span><b class="v mono">—</b><small></small></div>
+      <div class="ck spot" data-k="registry"><span>Address registry</span><b class="v mono">—</b><small></small></div>
+      <div class="ck spot" data-k="tree"><span>Note tree</span><b class="v mono">—</b><small></small></div>
+      <div class="ck spot" data-k="ringtx"><span>Through the Ring</span><b class="v mono">—</b><small>transactions, last hour</small></div>
+      <div class="ck spot" data-k="vault"><span>Velius vault</span><b class="v mono">—</b><small></small></div>
+    </div>
+  </div>
+</section>
+
+<section class="band dim" id="routes">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">02 — Velius routes</span><h2>Our own servers, <em>timed.</em></h2><p class="lede">Each route reads public data and keeps nothing. Here is what each one answered, and how fast.</p></div>
+    <div class="rt rv" id="rt">
+      <div class="rt-h"><span>Route</span><span>What it reads</span><span>Answer</span><span>Time</span></div>
+      <div data-r="/api/status"><span class="mono">/api/status</span><span>Solana slot and the Privacy Rings programs</span><span class="a mono">—</span><span class="t mono">—</span></div>
+      <div data-r="/api/ring"><span class="mono">/api/ring</span><span>Privacy Rings activity, hour by hour</span><span class="a mono">—</span><span class="t mono">—</span></div>
+      <div data-r="/api/vault"><span class="mono">/api/vault</span><span>Whether the vault is open</span><span class="a mono">—</span><span class="t mono">—</span></div>
+      <div data-r="/api/registered?addr=ring1GaLCuJnkUMVkX2JeZLTTX17wKsV4fZmPVzXANW"><span class="mono">/api/registered</span><span>A wallet's place on the registry</span><span class="a mono">—</span><span class="t mono">—</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="page">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">03 — This page</span><h2>What it's allowed <em>to do.</em></h2></div>
+    <div class="kvt rv">
+      <div><span>Connections</span><span class="mono">this site, api.hyperliquid.xyz, wss://api.hyperliquid.xyz</span></div>
+      <div><span>Scripts</span><span>From this site only</span></div>
+      <div><span>Cookies</span><span>None</span></div>
+      <div><span>Analytics</span><span>None</span></div>
+      <div><span>Stored in your browser</span><span>Your watchlist, chart settings, connected wallet name and private wallet address</span></div>
+      <div><span>Last check</span><span class="mono" id="lastAt">—</span></div>
+    </div>
+  </div>
+</section>
+</main>
+<div class="sr" aria-live="polite" id="sr"></div>
+<script type="module" src="/assets/js/status.js?v=3"></script>
+</body>
+</html>

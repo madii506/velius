@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VELIUS</title>
+<meta name="description" content="The Velius vault: how it fills every order at Hyperliquid's price, the rules it keeps, its keys, how it stays solvent, the risks, and what's left before it opens.">
+<meta name="theme-color" content="#07070b">
+<meta property="og:title" content="VELIUS · The vault">
+<meta property="og:description" content="One name on the book. Yours stays sealed.">
+<meta property="og:image" content="https://velius.vercel.app/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://velius.vercel.app/assets/img/og.jpg">
+<link rel="icon" href="/assets/img/favicon.svg?v=2" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png?v=2" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=2">
+<link rel="preload" href="/assets/fonts/disp-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/base.css?v=3">
+<link rel="stylesheet" href="/assets/css/site.css?v=3">
+</head>
+<body>
+<!-- header -->
+<div class="progress" id="progress"></div>
+<header class="top" id="top">
+  <a class="brand" href="/" aria-label="Velius home"><img src="/assets/img/mark.svg?v=1" alt="" width="28" height="28"><span class="word" id="brandWord">velius</span></a>
+  <nav class="nav" aria-label="Site">
+    <a href="/markets" data-p="markets">Markets</a><a href="/desk" data-p="desk">Desk</a><a href="/privacy" data-p="privacy">Privacy</a><a href="/vault" data-p="vault" class="on" aria-current="page">Vault</a><a href="/docs" data-p="docs">Docs</a><a href="/status" data-p="status">Status</a>
+  </nav>
+  <div class="tools">
+    <div class="wrap-w"><button class="chip" id="wBtn" type="button"><i class="dot"></i><span>Connect</span></button><div class="wmenu" id="wMenu"></div></div>
+    <a class="btn btn-w btn-sm hide-xs open-desk" href="/desk">Open desk</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button>
+  </div>
+</header>
+<div class="sheet" id="sheet">
+  <a href="/" data-p="home">Home</a><a href="/markets" data-p="markets">Markets</a><a href="/desk" data-p="desk">Desk</a><a href="/privacy" data-p="privacy">Privacy</a><a href="/vault" data-p="vault" class="on" aria-current="page">Vault</a><a href="/docs" data-p="docs">Docs</a><a href="/status" data-p="status">Status</a><a href="/desk" class="go">Open desk →</a>
+</div>
+<!-- /header -->
+
+<main>
+<section class="phero">
+  <canvas id="silk" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="crumb"><a href="/">Velius</a><i></i><span>The vault</span></div>
+    <h1 class="ph1">One name on the book.<br> <em>Yours stays sealed.</em></h1>
+    <p class="lede">The vault fills every Velius order at Hyperliquid's price and places the same order on Hyperliquid in its own name. Here is how it works, the rules it keeps, and what's left before it opens.</p>
+    <div class="kpis k4" id="kpis">
+      <div class="kpi"><span>State</span><b data-k="state" class="mono">—</b><small data-k="why">reading</small></div>
+      <div class="kpi"><span>Leverage</span><b data-k="lev">up to 20x</b><small>never above Hyperliquid's own limit</small></div>
+      <div class="kpi"><span>Markets it can mirror</span><b data-k="mk">—</b><small>every perp listed on Hyperliquid</small></div>
+      <div class="kpi"><span>Hyperliquid fee</span><b>0.045%</b><small>taker, base tier · maker 0.015%</small></div>
+    </div>
+  </div>
+</section>
+
+<nav class="subnav" aria-label="On this page"><div class="wrap">
+  <a href="#how"><b>01</b>How it works</a><a href="#order"><b>02</b>One order</a><a href="#rules"><b>03</b>Rules</a><a href="#keys"><b>04</b>Keys</a><a href="#solvency"><b>05</b>Solvency</a><a href="#risks"><b>06</b>Risks</a><a href="#roadmap"><b>07</b>Roadmap</a><a href="#faq"><b>08</b>Questions</a>
+</div></nav>
+
+<section class="band" id="how">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">01 — How it works</span><h2>In, trade, hold, <em>out.</em></h2><p class="lede">Four moves, each one checked against Hyperliquid's live book and signed by the key that's allowed to make it.</p></div>
+    <div class="lanes rv">
+      <div class="lane"><div class="node spot"><div class="ic">in</div><b>Deposit</b><small>USDC into your private balance, then a private transfer to the vault. The amount is encrypted.</small></div><div class="edge"><em>credited to your sealed book</em><i></i></div></div>
+      <div class="lane"><div class="node v spot"><div class="ic">↔</div><b>Trade</b><small>Your order fills at Hyperliquid's price. The vault places the same order on Hyperliquid, in its name.</small></div><div class="edge"><em>fill written, encrypted to you</em><i></i></div></div>
+      <div class="lane"><div class="node v spot"><div class="ic">◐</div><b>Hold</b><small>Your position sits in your sealed book. Take profit, stop and liquidation are watched at the mark.</small></div><div class="edge"><em>you sign to leave</em><i></i></div></div>
+      <div class="lane"><div class="node spot"><div class="ic">out</div><b>Withdraw</b><small>Your wallet signs. The vault closes or settles, then sends a private transfer back to you.</small></div><div class="edge"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band dim" id="order">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">02 — One order, start to finish</span><h2>What happens when you <em>press Long.</em></h2></div>
+    <ol class="life rv">
+      <li class="spot"><span class="t">01<em>your browser</em></span><h3>You sign</h3><p>Your trading key signs the order on your screen. It can trade. It can never withdraw.</p></li>
+      <li class="spot"><span class="t">02<em>the vault</em></span><h3>It checks</h3><p>Your margin, your leverage cap and the market's own limits, against the live book.</p></li>
+      <li class="spot"><span class="t">03<em>Hyperliquid</em></span><h3>It mirrors</h3><p>The same order goes to Hyperliquid in the vault's name. The public book sees one more vault order.</p></li>
+      <li class="spot"><span class="t">04<em>the vault</em></span><h3>You're filled</h3><p>At the price Hyperliquid filled the vault. Not a tick worse, not a spread on top.</p></li>
+      <li class="spot"><span class="t">05<em>your book</em></span><h3>It's sealed</h3><p>The fill is written to your sealed book, encrypted to you. Only your screen opens it.</p></li>
+      <li class="spot"><span class="t">06<em>the vault</em></span><h3>It watches</h3><p>Take profit, stop and liquidation, at Hyperliquid's mark, every hour of funding included.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="band" id="rules">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">03 — Rules</span><h2>The rules it <em>keeps.</em></h2><p class="lede">The same rules Hyperliquid uses, so a position on Velius behaves like the one the vault holds for it.</p></div>
+    <div class="kvt rv">
+      <div><span>Margin</span><span>Isolated. Each position has its own margin, so a bad trade can only lose what you put behind it.</span></div>
+      <div><span>Leverage</span><span>Up to 20x, and never above Hyperliquid's own maximum for that market. Where it allows 5x, so does Velius.</span></div>
+      <div><span>Liquidation</span><span>At Hyperliquid's mark price, once your margin falls to the maintenance level: half the initial margin at the market's maximum leverage.</span></div>
+      <div><span>Liquidation price</span><span class="mono">long: entry × (1 − 1/L) ÷ (1 − m)<br>short: entry × (1 + 1/L) ÷ (1 + m)<br>m = 1 ÷ (2 × the market's maximum leverage)</span></div>
+      <div><span>Funding</span><span>Hyperliquid's hourly rate, paid or received on your position every hour, exactly as it lands on the vault.</span></div>
+      <div><span>Fees</span><span>Hyperliquid's fee is passed through at cost: 0.045% taker and 0.015% maker at the base tier. Velius's own fee will be published here before the vault opens.</span></div>
+      <div><span>Orders</span><span>Market, limit and stop, with a take profit and a stop attached to any of them.</span></div>
+      <div><span>Minimum</span><span>$10 an order, Hyperliquid's own minimum.</span></div>
+      <div><span>Price</span><span>Every fill is at the price Hyperliquid fills the vault. The desk shows that book live.</span></div>
+    </div>
+    <p class="note rv">Worked through on the live mark in the docs: <a class="more" href="/docs#math">The trading math</a></p>
+  </div>
+</section>
+
+<section class="band dim" id="keys">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">04 — Keys</span><h2>Every key does <em>one job.</em></h2><p class="lede">The design the vault is being built to, published now so it can be checked. The funded mainnet test proves it before a single deposit.</p></div>
+    <div class="keys rv">
+      <div class="key spot"><span class="who">yours</span><h3>Your wallet</h3><div class="can"><span>Derives your private wallet</span><span>Signs deposits and withdrawals</span></div><div class="cant"><span>Appear next to your trades</span></div></div>
+      <div class="key spot"><span class="who">yours, in your browser</span><h3>Your trading key</h3><div class="can"><span>Places and cancels your orders</span></div><div class="cant"><span>Withdraw, ever</span><span>Move money between wallets</span></div></div>
+      <div class="key spot"><span class="who">the vault's, on Hyperliquid</span><h3>The vault's agent</h3><div class="can"><span>Places and cancels the mirrored orders</span></div><div class="cant"><span>Withdraw from Hyperliquid; its API wallets can't</span></div></div>
+      <div class="key spot"><span class="who">the vault's, kept offline</span><h3>The vault's main key</h3><div class="can"><span>Moves funds between Hyperliquid and the Ring</span><span>Approves or revokes the agent</span></div><div class="cant"><span>Live on a server</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="solvency">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eb">05 — Solvency</span>
+      <h2>Every position, <em>mirrored.</em></h2>
+      <p class="lede">The vault places every order it fills, so its position on Hyperliquid always equals the sum of the sealed books. Opposite trades net out on Hyperliquid, and the vault still settles each trader in full.</p>
+      <p class="lede">Its Hyperliquid account is public. When the vault opens, its equity and positions will be shown here, live, next to the total of the sealed books.</p>
+    </div>
+    <div class="rv">
+      <div class="tbl spot">
+        <div class="tr th" style="grid-template-columns:1.4fr 1fr 1fr"><span>Example</span><span>Side</span><span>Size</span></div>
+        <div class="tr" style="grid-template-columns:1.4fr 1fr 1fr"><span>Trader one</span><span class="up">long</span><span class="mono">2.0 BTC</span></div>
+        <div class="tr" style="grid-template-columns:1.4fr 1fr 1fr"><span>Trader two</span><span class="down">short</span><span class="mono">1.5 BTC</span></div>
+        <div class="tr" style="grid-template-columns:1.4fr 1fr 1fr"><span>The vault on Hyperliquid</span><span class="up">long</span><span class="mono">0.5 BTC</span></div>
+      </div>
+      <p class="note">An example, not a position. Each trader's profit and loss is settled in full; the vault's net position is what the public book sees.</p>
+      <div class="ck spot" style="margin-top:18px"><span>The vault's Hyperliquid account</span><b class="v mono wait" id="hlAcct">opens with the vault</b><small id="hlAcctS">equity and positions, live, once it is funded</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="band dim" id="risks">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">06 — Risks</span><h2>Leverage cuts <em>both ways.</em></h2><p class="lede">Read these before you deposit anything. Only trade what you can afford to lose.</p></div>
+    <div class="cards rv">
+      <div class="card warn spot"><span class="k">Custody</span><h3>The vault holds funds</h3><p>Like any exchange, the vault holds trading money while you trade. Withdrawals need your wallet's signature, but you are trusting the vault to honour them.</p></div>
+      <div class="card warn spot"><span class="k">Venue</span><h3>Hyperliquid's risks</h3><p>The vault trades on Hyperliquid. Its outages, oracle prices and auto-deleveraging in extreme moves reach every position the vault holds.</p></div>
+      <div class="card warn spot"><span class="k">Price</span><h3>Gaps and liquidation</h3><p>Prices can jump past a stop. At high leverage a small move reaches liquidation, and isolated margin on that position is lost.</p></div>
+      <div class="card warn spot"><span class="k">Funding</span><h3>It can turn</h3><p>Funding is paid every hour, and the side that pays can flip. Holding against the crowd for days costs real money.</p></div>
+      <div class="card warn spot"><span class="k">Software</span><h3>New code</h3><p>The vault engine is new and the Privacy Rings SDK is in alpha. Both are tested before opening, and neither is free of bugs.</p></div>
+      <div class="card warn spot"><span class="k">Privacy</span><h3>Not invisible</h3><p>Deposits, withdrawals and the parties to a private transfer are public. <a class="more" href="/privacy#limits">The limits</a></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="roadmap">
+  <div class="wrap split atop">
+    <div class="rv">
+      <span class="eb">07 — Roadmap</span>
+      <h2>The vault <em id="vaultWord">opens soon.</em></h2>
+      <p class="lede" id="vaultLede">Everything above the line works today. The vault opens once it is funded and has passed a live test on mainnet, and not before.</p>
+    </div>
+    <ul class="roll rv" id="roll">
+      <li class="ok"><i></i><div><b>Live markets, charts, books and funding</b><small>Every Hyperliquid perp, streamed to the desk and the markets page</small></div><span>Works now</span></li>
+      <li class="ok"><i></i><div><b>The desk</b><small>Full ticket, risk sizing, your lines on your screen</small></div><span>Works now</span></li>
+      <li class="ok"><i></i><div><b>Your private wallet on Privacy Rings</b><small>Derived from one signature, in your browser</small></div><span>Works now</span></li>
+      <li data-r="engine"><i></i><div><b>Vault engine on testnet</b><small>Hyperliquid testnet and Privacy Rings devnet, end to end</small></div><span>Next</span></li>
+      <li data-r="test"><i></i><div><b>Funded live test on mainnet</b><small>Real deposits, real fills, real withdrawals, by the team first</small></div><span>Then</span></li>
+      <li data-r="open"><i></i><div><b>Deposits open</b><small>With a cap per wallet at first</small></div><span>Then</span></li>
+      <li><i></i><div><b>Anonymous custom rings</b><small>Hiding the parties too, once Privacy Rings ships them on mainnet</small></div><span>Later</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="band dim" id="faq">
+  <div class="wrap narrow">
+    <div class="head rv"><span class="eb">08 — Questions</span><h2>About the <em>vault.</em></h2></div>
+    <div class="faq rv">
+      <details><summary>Why trade through a vault at all?</summary><p>Hyperliquid's book is public, and so is every account on it. When the vault places your order in its own name, the book shows the vault's total, never your position.</p></details>
+      <details><summary>Do I get a worse price?</summary><p>No. You're filled at the price Hyperliquid fills the vault, plus Hyperliquid's own fee passed through at cost. Velius's own fee will be published here before the vault opens.</p></details>
+      <details><summary>What if Velius goes offline?</summary><p>Positions stay open on Hyperliquid in the vault's account, and stops keep working there. Withdrawals wait until it is back. That is part of the custody risk above.</p></details>
+      <details><summary>Can the vault see my trades?</summary><p>Yes. It fills them, so it has to. It keeps them off the public record: Hyperliquid's book shows only its total, and your sealed book is encrypted to you.</p></details>
+      <details><summary>Can my trading key empty my account?</summary><p>No. It can place and cancel orders. Moving money out takes your wallet's own signature.</p></details>
+      <details><summary>When does it open?</summary><p>When it is funded and has passed a live test on mainnet. This page and the desk switch to open on the same day, and not a day before.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="pnext rv">
+      <a class="go" href="/desk"><span>Try it</span><b>Open the desk</b><em>Everything but the deposit works today, on live prices.</em></a>
+      <a href="/privacy"><span>Read next</span><b>Privacy</b><em>Who sees what, the live Ring, and the limits stated plainly.</em></a>
+    </div>
+  </div>
+</section>
+</main>
+<div class="sr" aria-live="polite" id="sr"></div>
+<script type="module" src="/assets/js/vault.js?v=3"></script>
+</body>
+</html>

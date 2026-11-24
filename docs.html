@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VELIUS</title>
+<meta name="description" content="Velius docs: getting started, the desk, order types, the trading math worked on the live mark, funding, privacy, the vault, security, data sources and a glossary.">
+<meta name="theme-color" content="#07070b">
+<meta property="og:title" content="VELIUS · Docs">
+<meta property="og:description" content="How Velius works, end to end.">
+<meta property="og:image" content="https://velius.vercel.app/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://velius.vercel.app/assets/img/og.jpg">
+<link rel="icon" href="/assets/img/favicon.svg?v=2" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png?v=2" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=2">
+<link rel="stylesheet" href="/assets/css/base.css?v=3">
+<link rel="stylesheet" href="/assets/css/site.css?v=3">
+<link rel="stylesheet" href="/assets/css/docs.css?v=3">
+</head>
+<body class="docspage">
+<!-- header -->
+<div class="progress" id="progress"></div>
+<header class="top" id="top">
+  <a class="brand" href="/" aria-label="Velius home"><img src="/assets/img/mark.svg?v=1" alt="" width="28" height="28"><span class="word" id="brandWord">velius</span></a>
+  <nav class="nav" aria-label="Site">
+    <a href="/markets" data-p="markets">Markets</a><a href="/desk" data-p="desk">Desk</a><a href="/privacy" data-p="privacy">Privacy</a><a href="/vault" data-p="vault">Vault</a><a href="/docs" data-p="docs" class="on" aria-current="page">Docs</a><a href="/status" data-p="status">Status</a>
+  </nav>
+  <div class="tools">
+    <div class="wrap-w"><button class="chip" id="wBtn" type="button"><i class="dot"></i><span>Connect</span></button><div class="wmenu" id="wMenu"></div></div>
+    <a class="btn btn-w btn-sm hide-xs open-desk" href="/desk">Open desk</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button>
+  </div>
+</header>
+<div class="sheet" id="sheet">
+  <a href="/" data-p="home">Home</a><a href="/markets" data-p="markets">Markets</a><a href="/desk" data-p="desk">Desk</a><a href="/privacy" data-p="privacy">Privacy</a><a href="/vault" data-p="vault">Vault</a><a href="/docs" data-p="docs" class="on" aria-current="page">Docs</a><a href="/status" data-p="status">Status</a><a href="/desk" class="go">Open desk →</a>
+</div>
+<!-- /header -->
+
+<div class="docs">
+  <aside class="dside" id="side">
+    <label class="dsearch"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="M10.4 10.4l3.4 3.4"/></svg><input id="dq" placeholder="Search the docs" autocomplete="off" spellcheck="false" aria-label="Search the docs"><kbd>/</kbd></label>
+    <nav id="toc" aria-label="Docs">
+      <div class="dg"><span>Start</span><a href="#intro">What Velius is</a><a href="#start">Getting started</a></div>
+      <div class="dg"><span>Trading</span><a href="#desk">The desk</a><a href="#orders">Order types</a><a href="#keyboard">Keyboard</a><a href="#math">The trading math</a><a href="#funding">Funding</a></div>
+      <div class="dg"><span>Privacy and safety</span><a href="#privacy">Privacy</a><a href="#vault">The vault</a><a href="#security">Security</a></div>
+      <div class="dg"><span>Reference</span><a href="#data">Data sources</a><a href="#glossary">Glossary</a><a href="#faq">Questions</a></div>
+    </nav>
+    <p class="dnone" id="dnone" hidden>Nothing in the docs matches.</p>
+  </aside>
+
+  <main class="doc" id="doc">
+    <div class="crumb"><a href="/">Velius</a><i></i><span>Docs</span></div>
+    <h1 class="ph1">How Velius <em>works.</em></h1>
+    <p class="lede">Everything from your first signature to the liquidation formula, with the numbers worked on Hyperliquid's live prices.</p>
+
+    <section id="intro" data-t="what velius is overview private perps solana hyperliquid">
+      <h2><a href="#intro">What Velius is</a></h2>
+      <p>Velius is a private perp desk on Solana. You trade Hyperliquid's perpetual futures at Hyperliquid's price. The vault places each order on Hyperliquid in its own name, so the public book never shows yours, and money moves through Helius Privacy Rings, where amounts are encrypted.</p>
+      <div class="facts">
+        <div><span>Markets</span><b id="fMk">every Hyperliquid perp</b></div>
+        <div><span>Leverage</span><b>up to 20x, isolated</b></div>
+        <div><span>Works today</span><b>desk, markets, private wallet</b></div>
+        <div><span>Deposits</span><b id="fVault">open with the vault</b></div>
+      </div>
+    </section>
+
+    <section id="start" data-t="getting started connect derive deposit trade withdraw steps">
+      <h2><a href="#start">Getting started</a></h2>
+      <ol class="steps-d">
+        <li><b>Connect a Solana wallet.</b> Phantom, Solflare or Backpack, from the button at the top right. Velius never asks for a seed phrase, and no page has a field for one.</li>
+        <li><b>Derive your private wallet.</b> Sign one message on the <a href="/privacy#wallet">privacy page</a> or in the desk's Private wallet tab. The Privacy Rings SDK makes the wallet in your browser, and the same signature always gives the same wallet back.</li>
+        <li><b>Deposit.</b> Move USDC into your private balance, then send it to the vault as a private transfer, its amount encrypted. <em>Opens with the vault.</em></li>
+        <li><b>Trade.</b> Pick a market, set the size, leverage, take profit and stop, and place the order. It fills at Hyperliquid's price.</li>
+        <li><b>Withdraw.</b> Your wallet signs. The vault settles and sends a private transfer back to you.</li>
+      </ol>
+    </section>
+
+    <section id="desk" data-t="desk chart book trades depth ticket watchlist star grouping moving average ema lines sealed book">
+      <h2><a href="#desk">The desk</a></h2>
+      <p>One screen for one trader. Everything on it streams live from Hyperliquid's public API; your own lines never leave it.</p>
+      <dl class="dl">
+        <dt>Market bar</dt><dd>The market, its mark and oracle prices, the 24 hour change, volume, open interest, funding an hour and a year, and the countdown to the next payment. The star adds it to your watchlist.</dd>
+        <dt>Watchlist</dt><dd>Your starred markets with live prices, under the market bar. Click one to switch. It's kept in this browser only.</dd>
+        <dt>Chart</dt><dd>Candles from one minute to one day, with volume and the live mark. Moving averages over 20, 50 and 200 candles switch on above it. Your entry, take profit and stop are drawn as lines you can drag; the liquidation price is drawn too.</dd>
+        <dt>Book, trades, depth</dt><dd>Hyperliquid's live order book, grouped to the tick you pick; the public tape; and the book as two cumulative curves around the mid. Click a level to price a limit order there.</dd>
+        <dt>Ticket</dt><dd>Side, order type, size in dollars or by risk, leverage, take profit and stop. Entry, size, margin, liquidation, fee, the loss at your stop and reward to risk update as you type, and it warns you when liquidation comes before your stop.</dd>
+        <dt>Sealed book</dt><dd>Your positions, orders and history, encrypted to you, plus the market's funding over seven days and your private wallet.</dd>
+      </dl>
+    </section>
+
+    <section id="orders" data-t="order types market limit stop trigger take profit stop loss risk sizing maker taker">
+      <h2><a href="#orders">Order types</a></h2>
+      <dl class="dl">
+        <dt>Market</dt><dd>Fills now against the book. The ticket estimates your average entry by walking the live book for your size, and pays the taker fee.</dd>
+        <dt>Limit</dt><dd>Rests at your price and fills only there or better. A resting order pays the maker fee.</dd>
+        <dt>Stop</dt><dd>Triggers when the mark crosses your price, then fills as a market order.</dd>
+        <dt>Take profit and stop</dt><dd>Attach to any order. Type them, or drag their lines on the chart.</dd>
+        <dt>Size by risk</dt><dd>Switch the size field to Risk and type the most you would lose at your stop. The ticket works out the size, fees in and out included.</dd>
+      </dl>
+    </section>
+
+    <section id="keyboard" data-t="keyboard shortcuts keys hotkeys">
+      <h2><a href="#keyboard">Keyboard</a></h2>
+      <p>On the desk, when you aren't typing in a field. Press <kbd>?</kbd> there to see this list.</p>
+      <div class="keysd" id="keysd"></div>
+    </section>
+
+    <section id="math" data-t="trading math formula margin liquidation maintenance pnl profit loss fees funding payment notional risk sizing example">
+      <h2><a href="#math">The trading math</a></h2>
+      <p>The same rules Hyperliquid uses. Worked here on the live mark, for a $10,000 position.</p>
+      <div class="ex" id="ex">
+        <div class="ex-h"><b>Live example</b><span id="exNote">reading Hyperliquid…</span>
+          <div class="seg" id="exMk"><button class="on" data-c="BTC" type="button">BTC</button><button data-c="ETH" type="button">ETH</button><button data-c="SOL" type="button">SOL</button><button data-c="HYPE" type="button">HYPE</button></div>
+          <div class="seg" id="exSide"><button class="on" data-s="1" type="button">Long</button><button data-s="-1" type="button">Short</button></div>
+          <div class="seg" id="exLev"><button data-l="5" type="button">5x</button><button class="on" data-l="10" type="button">10x</button><button data-l="20" type="button">20x</button></div>
+        </div>
+        <div class="ex-g">
+          <div><span>Entry, the live mark</span><b id="exE">—</b></div>
+          <div><span>Coins</span><b id="exQ">—</b></div>
+          <div><span>Margin</span><b id="exM">—</b></div>
+          <div><span>Liquidation</span><b id="exL">—</b></div>
+          <div><span>Move to liquidation</span><b id="exMv">—</b></div>
+          <div><span>Fees, in and out</span><b id="exF">—</b></div>
+          <div><span>Funding, this hour</span><b id="exFu">—</b></div>
+          <div><span>Maintenance rate m</span><b id="exMm">—</b></div>
+        </div>
+        <div class="ex-f" id="exFx"></div>
+      </div>
+      <div class="kvt">
+        <div><span>Size</span><span class="mono">coins × price</span></div>
+        <div><span>Margin</span><span class="mono">size ÷ leverage</span></div>
+        <div><span>Maintenance rate</span><span class="mono">m = 1 ÷ (2 × the market's maximum leverage)</span></div>
+        <div><span>Liquidation, long</span><span class="mono">entry × (1 − 1/L) ÷ (1 − m)</span></div>
+        <div><span>Liquidation, short</span><span class="mono">entry × (1 + 1/L) ÷ (1 + m)</span></div>
+        <div><span>Profit and loss</span><span class="mono">(exit − entry) × coins, long<br>(entry − exit) × coins, short</span></div>
+        <div><span>Fees</span><span class="mono">size × 0.045% taker, × 0.015% maker, on the way in and out</span></div>
+        <div><span>Funding, each hour</span><span class="mono">coins × oracle price × hourly rate</span></div>
+        <div><span>Size by risk</span><span class="mono">risk ÷ (|entry − stop| ÷ entry + fee in + fee out)</span></div>
+      </div>
+    </section>
+
+    <section id="funding" data-t="funding rate hourly premium interest cap longs pay shorts yearly apr">
+      <h2><a href="#funding">Funding</a></h2>
+      <p>Perps never expire, so funding keeps their price close to the spot price. Every hour, one side pays the other.</p>
+      <ul class="ul">
+        <li>Paid every hour, on the hour. The desk and the markets page count down to the next one.</li>
+        <li>A positive rate means longs pay shorts. A negative rate means shorts pay longs.</li>
+        <li>The rate is built from the premium, how far Hyperliquid's price sits from the oracle, plus a fixed interest part of 0.00125% an hour, which is 0.01% every eight hours.</li>
+        <li>Hyperliquid caps the rate at 4% an hour.</li>
+        <li>"A year" on Velius is the current hourly rate times 8,760. It's a pace, not a promise: rates change every hour.</li>
+      </ul>
+      <p class="live-line" id="fNow">Reading BTC funding…</p>
+    </section>
+
+    <section id="privacy" data-t="privacy rings private wallet derive derivation registry default ring encrypted public sender recipient">
+      <h2><a href="#privacy">Privacy</a></h2>
+      <dl class="dl">
+        <dt>Your private wallet</dt><dd>Derived from one wallet signature over a fixed message, with the Privacy Rings SDK, in your browser. Its keys are never stored; the same signature recreates them.</dd>
+        <dt>The registry</dt><dd>Links your wallet to its private wallet, so others can send to you privately. Being on it is public.</dd>
+        <dt>The Default Ring</dt><dd>Amount, asset and memo are encrypted. The sender, the recipient and the owner's signature on each private spend are public, and so are deposits into the Ring and withdrawals out of it.</dd>
+        <dt>Coming later</dt><dd>Anonymous custom rings, which hide the parties too, aren't on mainnet yet.</dd>
+      </dl>
+      <p><a class="more" href="/privacy">The full model and the live Ring</a></p>
+    </section>
+
+    <section id="vault" data-t="vault custody mirror sealed book agent keys solvency open closed">
+      <h2><a href="#vault">The vault</a></h2>
+      <p>The vault fills your order at Hyperliquid's price, places the same order on Hyperliquid in its own name, and records the fill in your sealed book, encrypted to you. Its position on Hyperliquid always equals the sum of the sealed books. It opens once it is funded and has passed a live test on mainnet.</p>
+      <p><a class="more" href="/vault">How it works, its rules and keys</a></p>
+    </section>
+
+    <section id="security" data-t="security keys seed phrase content security policy csp cookies analytics trading key agent">
+      <h2><a href="#security">Security</a></h2>
+      <dl class="dl">
+        <dt>No seed phrases</dt><dd>Velius never asks for one, and no page has a field for one. Wallets connect through the Wallet Standard; your wallet shows you everything you sign.</dd>
+        <dt>Keys with one job</dt><dd>Your wallet signs withdrawals. Your trading key places and cancels orders and can never withdraw. The vault's agent on Hyperliquid trades and can't withdraw; its main key is kept offline.</dd>
+        <dt>Locked connections</dt><dd>Pages can only connect to this site and Hyperliquid's public API: <code>connect-src 'self' https://api.hyperliquid.xyz wss://api.hyperliquid.xyz</code>. Scripts load only from this site, and the pages can't be framed.</dd>
+        <dt>Nothing tracked</dt><dd>No cookies, no analytics, no trackers. Your watchlist, timeframe and chart settings live in this browser only.</dd>
+        <dt>Server routes</dt><dd>They read public chain data and keep nothing. Each one is listed under data sources.</dd>
+      </dl>
+    </section>
+
+    <section id="data" data-t="data sources api hyperliquid info websocket routes solana rpc endpoints">
+      <h2><a href="#data">Data sources</a></h2>
+      <div class="dtab">
+        <div class="dth"><span>Source</span><span>What it gives</span></div>
+        <div><span class="mono">Hyperliquid · metaAndAssetCtxs</span><span>Every perp with its mark, oracle, funding, open interest and volume</span></div>
+        <div><span class="mono">Hyperliquid · candleSnapshot</span><span>Candles for the charts</span></div>
+        <div><span class="mono">Hyperliquid · l2Book</span><span>The order book, optionally grouped</span></div>
+        <div><span class="mono">Hyperliquid · recentTrades</span><span>The latest public trades</span></div>
+        <div><span class="mono">Hyperliquid · fundingHistory</span><span>Funding, hour by hour</span></div>
+        <div><span class="mono">Hyperliquid websocket</span><span>allMids, l2Book, trades, candle and activeAssetCtx, live</span></div>
+        <div><span class="mono">/api/status</span><span>The Solana slot, and whether the Privacy Rings program, registry and note tree are live</span></div>
+        <div><span class="mono">/api/ring</span><span>Privacy Rings transactions over the last day, hour by hour, and the latest six</span></div>
+        <div><span class="mono">/api/registered</span><span>Whether a wallet is on the Privacy Rings registry</span></div>
+        <div><span class="mono">/api/scan</span><span>What any Solana address shows publicly</span></div>
+        <div><span class="mono">/api/vault</span><span>Whether the vault is open</span></div>
+      </div>
+      <p><a class="more" href="/status">Every source, checked live</a></p>
+    </section>
+
+    <section id="glossary" data-t="glossary terms definitions">
+      <h2><a href="#glossary">Glossary</a></h2>
+      <dl class="dl gl" id="gl">
+        <dt>Perp</dt><dd>A perpetual future: a contract that tracks a price, with leverage and no expiry.</dd>
+        <dt>Mark price</dt><dd>Hyperliquid's fair price for a market, built from its own book and outside prices. Liquidations and unrealized profit use it.</dd>
+        <dt>Oracle price</dt><dd>The spot price from major exchanges, updated by Hyperliquid's validators every few seconds. Funding is measured against it.</dd>
+        <dt>Mid price</dt><dd>Halfway between the best bid and the best ask.</dd>
+        <dt>Premium</dt><dd>How far the perp trades above or below the oracle.</dd>
+        <dt>Funding rate</dt><dd>What one side pays the other each hour, as a share of the position.</dd>
+        <dt>Open interest</dt><dd>The total size of every open position in a market.</dd>
+        <dt>Size</dt><dd>A position's value at the entry price: coins times price. Also called notional.</dd>
+        <dt>Leverage</dt><dd>Size divided by the margin behind it.</dd>
+        <dt>Isolated margin</dt><dd>Margin that belongs to one position only.</dd>
+        <dt>Maintenance margin</dt><dd>The least margin a position may keep before it's liquidated: half the initial margin at the market's maximum leverage.</dd>
+        <dt>Liquidation</dt><dd>The forced close of a position whose margin has run out.</dd>
+        <dt>Auto-deleveraging</dt><dd>Hyperliquid's last resort in extreme moves: closing profitable positions against ones that can't be liquidated.</dd>
+        <dt>Maker and taker</dt><dd>A maker's order rests on the book; a taker's fills against it. Makers pay less.</dd>
+        <dt>Spread</dt><dd>The gap between the best ask and the best bid.</dd>
+        <dt>Slippage</dt><dd>How far your average fill lands from the price you saw, because your size walked the book.</dd>
+        <dt>Tick</dt><dd>The smallest price step. Grouping the book merges levels into bigger ticks.</dd>
+        <dt>Reward to risk</dt><dd>What your take profit pays, divided by what your stop costs, fees included.</dd>
+        <dt>EMA</dt><dd>Exponential moving average: an average of closing prices that weighs recent candles more.</dd>
+        <dt>Privacy Rings</dt><dd>Helius's shielded pool on Solana, where balances and transfers are encrypted.</dd>
+        <dt>Default Ring</dt><dd>The live Privacy Rings pool: amounts hidden, parties public.</dd>
+        <dt>Private wallet</dt><dd>Your address inside Privacy Rings, derived from one signature.</dd>
+        <dt>Sealed book</dt><dd>Your positions and history at Velius, encrypted to you.</dd>
+        <dt>Agent</dt><dd>A Hyperliquid API wallet: it can trade for an account and can't withdraw from it.</dd>
+      </dl>
+    </section>
+
+    <section id="faq" data-t="questions faq">
+      <h2><a href="#faq">Questions</a></h2>
+      <div class="faq">
+        <details><summary>Which markets can I trade?</summary><p>Every perp listed on Hyperliquid, up to 20x and isolated. Where Hyperliquid allows less, so does Velius.</p></details>
+        <details><summary>Is Velius part of Helius or Hyperliquid?</summary><p>No. Velius is independent. It's built on Privacy Rings, which Helius publishes as an open SDK, and reads Hyperliquid's public markets.</p></details>
+        <details><summary>Does Velius see my data?</summary><p>Market data streams from Hyperliquid to your browser. Your lines and your private wallet are made in this tab. Once the vault opens, it knows your trades because it fills them; it never publishes them.</p></details>
+        <details><summary>Why is the yearly funding so large?</summary><p>It's the current hourly rate times 8,760. Rates change every hour, so treat it as a pace.</p></details>
+        <details><summary>Where's my watchlist stored?</summary><p>In this browser only. Clear the site's data and it's gone; nothing about it reaches Velius.</p></details>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="sr" aria-live="polite" id="sr"></div>
+<script type="module" src="/assets/js/docs.js?v=3"></script>
+</body>
+</html>

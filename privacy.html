@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VELIUS</title>
+<meta name="description" content="What the chain sees when you trade on Velius, and what it never will. The privacy model, the live Ring, a wallet scan, your private wallet, and the limits stated plainly.">
+<meta name="theme-color" content="#07070b">
+<meta property="og:title" content="VELIUS · Privacy">
+<meta property="og:description" content="What the chain sees, and what it never will.">
+<meta property="og:image" content="https://velius.vercel.app/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://velius.vercel.app/assets/img/og.jpg">
+<link rel="icon" href="/assets/img/favicon.svg?v=2" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png?v=2" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=2">
+<link rel="preload" href="/assets/fonts/disp-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/base.css?v=3">
+<link rel="stylesheet" href="/assets/css/site.css?v=3">
+</head>
+<body>
+<!-- header -->
+<div class="progress" id="progress"></div>
+<header class="top" id="top">
+  <a class="brand" href="/" aria-label="Velius home"><img src="/assets/img/mark.svg?v=1" alt="" width="28" height="28"><span class="word" id="brandWord">velius</span></a>
+  <nav class="nav" aria-label="Site">
+    <a href="/markets" data-p="markets">Markets</a><a href="/desk" data-p="desk">Desk</a><a href="/privacy" data-p="privacy" class="on" aria-current="page">Privacy</a><a href="/vault" data-p="vault">Vault</a><a href="/docs" data-p="docs">Docs</a><a href="/status" data-p="status">Status</a>
+  </nav>
+  <div class="tools">
+    <div class="wrap-w"><button class="chip" id="wBtn" type="button"><i class="dot"></i><span>Connect</span></button><div class="wmenu" id="wMenu"></div></div>
+    <a class="btn btn-w btn-sm hide-xs open-desk" href="/desk">Open desk</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button>
+  </div>
+</header>
+<div class="sheet" id="sheet">
+  <a href="/" data-p="home">Home</a><a href="/markets" data-p="markets">Markets</a><a href="/desk" data-p="desk">Desk</a><a href="/privacy" data-p="privacy" class="on" aria-current="page">Privacy</a><a href="/vault" data-p="vault">Vault</a><a href="/docs" data-p="docs">Docs</a><a href="/status" data-p="status">Status</a><a href="/desk" class="go">Open desk →</a>
+</div>
+<!-- /header -->
+
+<main>
+<section class="phero">
+  <canvas id="silk" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="crumb"><a href="/">Velius</a><i></i><span>Privacy</span></div>
+    <h1 class="ph1">What the chain sees.<br> <em>And what it never will.</em></h1>
+    <p class="lede">Velius keeps your trading off the public record. This page shows exactly who can see what, reads the Ring live from Solana, and states the limits plainly.</p>
+    <div class="kpis k4" id="kpis">
+      <div class="kpi"><span>Ring transactions, last hour</span><b data-r="hour">—</b><small>read from Solana just now</small></div>
+      <div class="kpi"><span>Last 24 hours</span><b data-r="day">—</b><small>every one of them encrypted</small></div>
+      <div class="kpi"><span>Privacy Rings program</span><b data-k="prog">—</b><small data-k="progs">mainnet</small></div>
+      <div class="kpi"><span>Your wallet</span><b data-k="you">not connected</b><small data-k="yous">connect to check the registry</small></div>
+    </div>
+  </div>
+</section>
+
+<nav class="subnav" aria-label="On this page"><div class="wrap">
+  <a href="#model"><b>01</b>The model</a><a href="#who"><b>02</b>Who sees what</a><a href="#ring"><b>03</b>The Ring, live</a><a href="#scan"><b>04</b>Scan</a><a href="#wallet"><b>05</b>Your private wallet</a><a href="#never"><b>06</b>Never</a><a href="#limits"><b>07</b>Limits</a><a href="#programs"><b>08</b>Programs</a>
+</div></nav>
+
+<section class="band" id="model">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">01 — The model</span><h2>Four stops. <em>One veil.</em></h2><p class="lede">Money moves from your wallet to a private balance, then to the vault, which trades on Hyperliquid in its own name. Each stop shows less.</p></div>
+    <div class="lanes rv">
+      <div class="lane"><div class="node spot"><div class="ic">01</div><b>Your wallet</b><small>Phantom, Solflare or Backpack</small></div><div class="edge"><em>deposit · public</em><i></i></div>
+        <div class="seen"><div class="pub">Your address and its public history</div><div class="pub">The deposit into your private balance</div></div></div>
+      <div class="lane"><div class="node v spot"><div class="ic">02</div><b>Your private balance</b><small>Privacy Rings, derived from one signature</small></div><div class="edge"><em>private transfer · amount hidden</em><i></i></div>
+        <div class="seen"><div class="hid">Balance, asset and every amount</div><div class="pub">That a transfer happened, and to whom</div></div></div>
+      <div class="lane"><div class="node v spot"><div class="ic">03</div><b>The vault</b><small>A sealed book for every trader</small></div><div class="edge"><em>orders · in the vault's name</em><i></i></div>
+        <div class="seen"><div class="hid">Your side, size, entry and stops</div><div class="hid">Your profit and loss</div></div></div>
+      <div class="lane"><div class="node h spot"><div class="ic">04</div><b>Hyperliquid</b><small>The public order book</small></div><div class="edge"></div>
+        <div class="seen"><div class="pub">The vault's total position</div><div class="hid">Which trader is behind it</div></div></div>
+    </div>
+    <div class="legend rv"><span><i style="background:var(--warn)"></i>public, anyone can read it</span><span><i style="background:var(--v2)"></i>hidden from the public</span></div>
+  </div>
+</section>
+
+<section class="band dim" id="who">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">02 — Who sees what</span><h2>Every fact, <em>every viewer.</em></h2><p class="lede">The full table, including the vault. It knows your trades because it fills them, the way any exchange does. What it never does is publish them.</p></div>
+    <div class="tbl c5 rv">
+      <div class="tr th"><span></span><span>Hyperliquid's book</span><span>Solana</span><span>The vault</span><span>Your screen</span></div>
+      <div class="tr"><span>Your wallet address</span><span class="no">never</span><span class="op">public</span><span class="part">knows</span><span class="yes">yours</span></div>
+      <div class="tr"><span>Deposit into your private balance</span><span class="no">never</span><span class="op">public</span><span class="part">knows</span><span class="yes">yours</span></div>
+      <div class="tr"><span>What you move to the vault</span><span class="no">never</span><span class="part">encrypted</span><span class="part">knows</span><span class="yes">yours</span></div>
+      <div class="tr"><span>Side and size</span><span class="part">the vault's total</span><span class="no">never</span><span class="part">knows</span><span class="yes">yours</span></div>
+      <div class="tr"><span>Entry and leverage</span><span class="no">never</span><span class="no">never</span><span class="part">knows</span><span class="yes">yours</span></div>
+      <div class="tr"><span>Liquidation price</span><span class="no">never</span><span class="no">never</span><span class="part">watches it</span><span class="yes">yours</span></div>
+      <div class="tr"><span>Take profit and stop</span><span class="no">never</span><span class="no">never</span><span class="part">watches them</span><span class="yes">yours</span></div>
+      <div class="tr"><span>Profit and loss</span><span class="no">never</span><span class="no">never</span><span class="part">knows</span><span class="yes">yours</span></div>
+      <div class="tr"><span>Withdrawal back to your wallet</span><span class="no">never</span><span class="op">public</span><span class="part">knows</span><span class="yes">yours</span></div>
+    </div>
+    <p class="note rv">Public means anyone can read it on the chain. Encrypted means it is on the chain, but only its owner can read it.</p>
+  </div>
+</section>
+
+<section class="band" id="ring">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eb">03 — The Ring, live</span>
+      <h2>Privacy Rings, <em>right now.</em></h2>
+      <p class="lede">Helius's shielded pool on Solana. These numbers are read from the chain as you open the page: every transaction through the program in the last day, hour by hour. Anyone can count them. Nobody can read what moved.</p>
+      <ul class="ticks"><li>Each bar is one hour</li><li>An hour the read doesn't cover is left empty, never guessed</li><li>Signatures link to Solscan</li></ul>
+    </div>
+    <div class="ringbox rv spot off" id="ringBox">
+      <div class="rb-n"><div><b class="mono" data-r="hour">—</b><span>last hour</span></div><div><b class="mono" data-r="day">—</b><span>last 24 hours</span></div></div>
+      <div class="cols" id="ringCols"><canvas></canvas><div class="tip"></div></div>
+      <div class="cols-x"><span>24h ago</span><span>now</span></div>
+      <div class="rb-l" data-r="list"><div class="ph">Reading the Ring…</div></div>
+      <div class="rb-f"><i class="hring" aria-hidden="true"></i><span class="mono">ring1GaLC…ANW</span><a href="https://solscan.io/account/ring1GaLCuJnkUMVkX2JeZLTTX17wKsV4fZmPVzXANW" target="_blank" rel="noopener">Solscan ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="band dim" id="scan">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eb">04 — Scan</span>
+      <h2>What the chain knows <em>about you.</em></h2>
+      <p class="lede">Paste any Solana address. This is what anyone can read about it, right now. Inside the Ring, none of it shows. Nothing you scan is stored.</p>
+      <form class="scanf" id="scanF"><input id="scanQ" placeholder="Solana address" autocomplete="off" spellcheck="false" aria-label="Solana address"><button class="btn btn-w" type="submit">Scan</button></form>
+      <button class="mine" id="scanMine" type="button">Scan my connected wallet →</button>
+    </div>
+    <div class="scanout rv spot" id="scanOut"><div class="ph">The result shows up here. Nothing is stored.</div></div>
+  </div>
+</section>
+
+<section class="band" id="wallet">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eb">05 — Your private wallet</span>
+      <h2>One signature. <em>Your own veil.</em></h2>
+      <p class="lede">Connect, sign one message, and the Privacy Rings SDK derives your private wallet right here, in this tab. No seed is made or stored, and nothing is sent. Sign the same message again and you get the same wallet back.</p>
+    </div>
+    <div class="dv rv spot" id="dv">
+      <div class="dv-step" data-d="s1"><i>1</i><div><b>Connect a Solana wallet</b><span data-d="who">Phantom, Solflare or Backpack</span></div></div>
+      <div class="dv-step" data-d="s2"><i>2</i><div><b>Sign one message</b><span>It proves the wallet is yours. It moves nothing.</span></div></div>
+      <div class="dv-step" data-d="s3"><i>3</i><div><b>Your private wallet</b><span class="mono" data-d="addr">appears here</span></div></div>
+      <div class="dv-step" data-d="s4"><i>4</i><div><b>On the Privacy Rings registry</b><span class="mono" data-d="reg">—</span></div></div>
+      <div class="dv-go"><button class="btn btn-v" data-d="btn" type="button">Connect a wallet</button><span class="dv-msg" data-d="msg"></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band dim" id="never">
+  <div class="wrap split atop">
+    <div class="rv">
+      <span class="eb">06 — Never</span>
+      <h2>What Velius <em>never does.</em></h2>
+      <ul class="ticks x">
+        <li>Ask for your seed phrase or private key</li>
+        <li>Keep your private wallet's keys; only its address is remembered, in this browser</li>
+        <li>Set cookies, run analytics or load trackers</li>
+        <li>Send your lines, sizes or stops anywhere; they are drawn on your screen</li>
+        <li>Give the trading key the power to withdraw</li>
+      </ul>
+    </div>
+    <div class="rv">
+      <div class="card spot"><span class="k">The only places this page talks to</span><p>The browser enforces it. This is the site's actual content policy for connections:</p>
+        <p><code>connect-src 'self' https://api.hyperliquid.xyz wss://api.hyperliquid.xyz</code></p>
+        <p>This site, for the chain reads it does on your behalf, and Hyperliquid's public API for prices. Nothing else can be reached from these pages.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="limits">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">07 — Limits</span><h2>What privacy <em>can't hide.</em></h2><p class="lede">Stated plainly, so you can decide with all of it in view.</p></div>
+    <div class="cards rv">
+      <div class="card warn spot"><span class="k">Public</span><h3>Deposits show</h3><p>Moving money into your private balance is a normal Solana transfer. Anyone can see it, and its amount, at that moment. Withdrawals back to a public wallet show the same way.</p></div>
+      <div class="card warn spot"><span class="k">Public</span><h3>Parties show</h3><p>On the Default Ring, a private transfer's sender and recipient are public, with the owner's signature. Amount, asset and memo are hidden. Anonymous custom rings, which hide the parties too, aren't on mainnet yet.</p></div>
+      <div class="card warn spot"><span class="k">Inference</span><h3>Timing can be matched</h3><p>A deposit followed at once by a large trade on Hyperliquid can be linked by time. Leaving time between them, and not moving round numbers, makes that harder.</p></div>
+      <div class="card warn spot"><span class="k">Custody</span><h3>The vault knows</h3><p>It fills your trades, so it knows them. It keeps them off the public record; it can't keep them from itself. Only trade what you can afford to lose.</p></div>
+      <div class="card warn spot"><span class="k">Market</span><h3>Size still moves price</h3><p>Hyperliquid's book shows the vault's total. A very large order still moves the market, and others can see that movement, if not whose it was.</p></div>
+      <div class="card warn spot"><span class="k">Software</span><h3>Early days</h3><p>The Privacy Rings SDK is in alpha, and the vault isn't open yet. Both will change. This page will say so when they do.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band dim" id="programs">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">08 — Programs</span><h2>Check it <em>yourself.</em></h2><p class="lede">The Solana programs behind your private wallet, read live from mainnet as this page loads.</p></div>
+    <div class="kvt rv" id="progs">
+      <div><span>Privacy Rings program</span><span class="mono"><a href="https://solscan.io/account/ring1GaLCuJnkUMVkX2JeZLTTX17wKsV4fZmPVzXANW" target="_blank" rel="noopener">ring1GaLCuJnkUMVkX2JeZLTTX17wKsV4fZmPVzXANW ↗</a> <em class="pst" data-p="ring">reading…</em></span></div>
+      <div><span>Address registry</span><span class="mono"><a href="https://solscan.io/account/regy3WAeRXMYuMYxr5iK3Bf9Arr3PcxGxyzAddbiqDQ" target="_blank" rel="noopener">regy3WAeRXMYuMYxr5iK3Bf9Arr3PcxGxyzAddbiqDQ ↗</a> <em class="pst" data-p="registry">reading…</em></span></div>
+      <div><span>Note tree</span><span class="mono"><a href="https://solscan.io/account/777pvSGe5LaBd9nCczvE2FXEauiwtfGJ5XRpjKyniGor" target="_blank" rel="noopener">777pvSGe5LaBd9nCczvE2FXEauiwtfGJ5XRpjKyniGor ↗</a> <em class="pst" data-p="tree">reading…</em></span></div>
+      <div><span>Privacy Rings SDK</span><span class="mono">@heliuslabs/zolana 0.8, alpha, runs in your browser</span></div>
+      <div><span>Velius vault</span><span class="mono" id="vaultAddr">published when the vault opens</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="pnext rv">
+      <a class="go" href="/vault"><span>Read next</span><b>The vault</b><em>How it fills you at Hyperliquid's price, the rules it keeps, and what's left before it opens.</em></a>
+      <a href="/docs#privacy"><span>Docs</span><b>Privacy, in detail</b><em>Derivation, the registry, the Default Ring and what each one reveals.</em></a>
+    </div>
+  </div>
+</section>
+</main>
+<div class="sr" aria-live="polite" id="sr"></div>
+<script type="module" src="/assets/js/privacy.js?v=3"></script>
+</body>
+</html>
