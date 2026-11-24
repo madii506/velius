@@ -38,7 +38,14 @@ input,select{font:inherit;color:inherit}
 .brand .word{font-family:Serif;font-size:27px;line-height:1;letter-spacing:.2px;padding-bottom:2px}
 .nav{display:flex;gap:4px}
 .nav a{padding:8px 13px;border-radius:999px;color:var(--dim);font:500 13.5px Text;transition:color .2s,background .2s}
-.nav a:hover,.nav a.on{color:var(--ink);background:rgba(255,255,255,.05)}
+.nav a:hover{color:var(--ink);background:rgba(255,255,255,.05)}
+.nav a.on{color:var(--ink);background:rgba(91,59,255,.2);box-shadow:inset 0 0 0 1px rgba(141,121,255,.28)}
+.progress{position:fixed;left:0;top:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);z-index:45;background:linear-gradient(90deg,var(--v),var(--v2))}
+.deskpage .progress,.deskpage .open-desk{display:none}
+.deskpage{--hdr:54px}
+.deskpage .top{position:sticky;background:rgba(7,7,11,.96);border-bottom-color:var(--line2)}
+.deskpage .brand img{width:24px;height:24px}
+.deskpage .brand .word{font-size:23px}
 .tools{display:flex;align-items:center;gap:10px;justify-self:end}
 .wrap-w{position:relative}
 
@@ -78,6 +85,7 @@ input,select{font:inherit;color:inherit}
 .sheet{position:fixed;inset:var(--hdr) 0 0 0;z-index:39;background:rgba(7,7,11,.97);backdrop-filter:blur(10px);padding:18px 22px;display:flex;flex-direction:column;gap:2px;transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;overflow-y:auto}
 .sheet.open{opacity:1;transform:none;pointer-events:auto}
 .sheet a{font:600 22px Disp;padding:13px 4px;border-bottom:1px solid var(--line2)}
+.sheet a.on{color:var(--v3)}
 .sheet a.go{color:var(--v3);border:0;margin-top:10px}
 
 /* the Helius ring, in Helius's own orange */
@@ -86,6 +94,14 @@ input,select{font:inherit;color:inherit}
 .built{display:inline-flex;align-items:center;gap:10px;font:500 13px Text;color:var(--dim)}
 
 .up{color:var(--up)}.down{color:var(--down)}
+.seal-tag{display:inline-flex;align-items:center;gap:6px;color:var(--v3);font:500 11.5px Mono;text-transform:uppercase;letter-spacing:.08em}
+.seal-tag svg{width:12px;height:12px;fill:currentColor}
+.av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#1c1a2b;font:600 11px Disp;color:var(--v3);flex:none}
+.star{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;color:var(--faint);flex:none;transition:color .2s,background .2s}
+.star svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5}
+.star:hover{color:var(--ink);background:rgba(255,255,255,.05)}
+.star.on{color:#ffd36b}.star.on svg{fill:currentColor}
+kbd{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:6px;border:1px solid var(--line);border-bottom-width:2px;background:#14132a;font:600 11px Mono;color:var(--ink)}
 .ph{padding:18px;color:var(--faint);font:500 13px Text}
 .live{display:inline-flex;align-items:center;gap:7px;font:500 11.5px Mono;color:var(--faint);text-transform:uppercase;letter-spacing:.1em}
 .live i{width:7px;height:7px;border-radius:50%;background:var(--faint)}
@@ -96,6 +112,16 @@ input,select{font:inherit;color:inherit}
 @keyframes flu{from{background:rgba(43,211,143,.22)}}
 @keyframes fld{from{background:rgba(255,77,106,.22)}}
 
+/* a column chart with a hover readout (Ring activity, funding history) */
+.cols{position:relative;height:200px;margin-top:16px}
+.cols canvas{width:100%;height:100%}
+.cols-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:12.5px;color:var(--faint)}
+.cols-h b{color:var(--ink);font:600 13px Text}
+.cols-x{display:flex;justify-content:space-between;font:500 10.5px Mono;color:var(--faint);margin-top:6px}
+.tip{position:absolute;z-index:5;pointer-events:none;padding:8px 10px;border-radius:10px;background:rgba(16,15,26,.97);border:1px solid var(--line);box-shadow:0 12px 30px rgba(0,0,0,.5);font:500 12px Text;color:var(--dim);white-space:nowrap;transform:translate(-50%,-100%);margin-top:-10px;opacity:0;transition:opacity .12s}
+.tip.on{opacity:1}
+.tip b{display:block;font:600 14px Mono;color:var(--ink)}
+
 /* the flickering name */
 .flick span{display:inline-block;transition:opacity .04s linear}
 .glitch span{text-shadow:-3px 0 rgba(255,77,106,.55),3px 0 rgba(91,59,255,.85)}
@@ -103,5 +129,7 @@ input,select{font:inherit;color:inherit}
 .glitch span:nth-child(even){transform:translateX(-2px)}
 
 @media (max-width:1060px){.nav{display:none}.top{grid-template-columns:1fr auto}.menu-btn{display:block}}
+@media (max-width:1000px){.hide-m{display:none}}
+@media (max-width:640px){.hide-s{display:none}}
 @media (max-width:560px){.top{padding:0 14px}.hide-xs{display:none}.brand .word{font-size:24px}.wmenu{position:fixed;left:12px;right:12px;width:auto;top:calc(var(--hdr) + 6px)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
