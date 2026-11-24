@@ -27,6 +27,9 @@ export const int = n => isFinite(n) ? Math.round(n).toLocaleString('en-US') : '�
 export const clock = ms => { const s = Math.max(0, Math.floor(ms / 1000)); const m = Math.floor(s / 60), r = s % 60; return String(m).padStart(2, '0') + ':' + String(r).padStart(2, '0'); };
 export const ago = t => { const s = Math.max(0, Math.floor((Date.now() - t) / 1000)); return s < 60 ? s + 's' : s < 3600 ? Math.floor(s / 60) + 'm' : Math.floor(s / 3600) + 'h'; };
 export const cls = n => n > 0 ? 'up' : n < 0 ? 'down' : '';
+// funding is tiny per hour: keep enough digits that a real rate never rounds to zero
+export const fund = f => { if (!isFinite(f)) return '—'; const x = f * 100; const a = Math.abs(x); return (x > 0 ? '+' : '') + x.toFixed(a === 0 ? 4 : a < 0.0001 ? 6 : a < 0.001 ? 5 : 4) + '%'; };
+export const apr = f => isFinite(f) ? pct(f * 24 * 365 * 100, 1) : '—';
 
 export async function getJSON(url, ms = 9000) {
   const c = new AbortController(); const t = setTimeout(() => c.abort(), ms);

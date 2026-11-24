@@ -4,11 +4,22 @@ import { px, dec } from './fmt.js';
 
 const C = { up: '#2bd38f', down: '#ff4d6a', grid: 'rgba(255,255,255,.045)', axis: '#7f7a96', text: '#d9d4f2', bg: '#07070b' };
 
+// exponential moving average of the closes, seeded with the simple average of the first n
+export function ema(data, n) {
+  const out = new Array(data.length).fill(null);
+  if (data.length < n) return out;
+  const k = 2 / (n + 1); let s = 0;
+  for (let i = 0; i < n; i++) s += data[i].c;
+  let e = s / n; out[n - 1] = e;
+  for (let i = n; i < data.length; i++) { e = data[i].c * k + e * (1 - k); out[i] = e; }
+  return out;
+}
+
 export class Chart {
   constructor(canvas, o = {}) {
     this.cv = canvas; this.g = canvas.getContext('2d');
     this.data = []; this.lines = []; this.hover = null; this.drag = null; this.o = { volume: true, axis: true, cross: true, gap: 7, ...o };
-    this.onLine = null; this.mark = null;
+    this.onLine = null; this.mark = null; this.emas = [];
     new ResizeObserver(() => this.size()).observe(canvas);
     this.size();
     if (this.o.cross) {
@@ -34,6 +45,8 @@ export class Chart {
   }
   setLines(lines) { this.lines = lines.filter(l => isFinite(l.price) && l.price > 0); this.draw(); }
   setMark(p) { this.mark = p; }
+  setEMAs(list) { this.emas = list || []; this.draw(); }
+  emaLast(n) { const a = ema(this.data, n); return a[a.length - 1]; }
 
   view() {
     const padR = this.o.axis ? 74 : 8, padT = 12, padB = this.o.axis ? 22 : 6;
@@ -98,6 +111,17 @@ export class Chart {
       const y1 = v.y(Math.max(k.o, k.c)), y2 = v.y(Math.min(k.o, k.c));
       g.fillRect(xx - bw / 2, y1, bw, Math.max(1, y2 - y1));
     });
+    // moving averages over the closes, drawn for the visible stretch
+    if (this.emas.length) {
+      const off = this.data.length - v.d.length;
+      g.lineWidth = 1.5; g.lineJoin = 'round'; g.lineCap = 'round';
+      for (const e of this.emas) {
+        const vals = ema(this.data, e.n); let on = false;
+        g.strokeStyle = e.color; g.beginPath();
+        v.d.forEach((k, i) => { const val = vals[off + i]; if (val == null) return; const xx = v.x(i), yy = v.y(val); if (on) g.lineTo(xx, yy); else { g.moveTo(xx, yy); on = true; } });
+        g.stroke();
+      }
+    }
     // the trader's lines: drawn here, on this screen, and nowhere else
     for (const l of this.lines) {
       const yy = Math.round(v.y(l.price)) + .5;
