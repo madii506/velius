@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VELIUS</title>
+<meta name="description" content="The Velius desk: Hyperliquid's markets, live, with your lines kept on your screen.">
+<meta name="theme-color" content="#07070b">
+<meta property="og:title" content="VELIUS">
+<meta property="og:image" content="__SITE__/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/img/favicon.svg?v=2" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png?v=2" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=2">
+<link rel="preload" href="/assets/fonts/mono.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/base.css?v=2">
+<link rel="stylesheet" href="/assets/css/desk.css?v=2">
+</head>
+<body class="deskpage">
+<header class="dtop">
+  <a class="brand" href="/" aria-label="Velius home"><img src="/assets/img/mark.svg?v=1" alt=""><span class="word">velius</span></a>
+  <button class="mkt" id="mktBtn" type="button" aria-haspopup="dialog"><span class="av" id="mktAv">BT</span><b id="mktName">BTC</b><em>-PERP</em><i class="car"></i></button>
+  <div class="stats" id="stats">
+    <div><span>Mark</span><b class="mono" id="sMark">—</b></div>
+    <div><span>Oracle</span><b class="mono" id="sOracle">—</b></div>
+    <div><span>24h</span><b class="mono" id="sChg">—</b></div>
+    <div><span>Volume 24h</span><b class="mono" id="sVol">—</b></div>
+    <div><span>Open interest</span><b class="mono" id="sOi">—</b></div>
+    <div><span>Funding · next</span><b class="mono"><em id="sFund">—</em> · <em id="sNext">—</em></b></div>
+  </div>
+  <div class="dtools">
+    <span class="vpill" id="vPill" title="The vault opens once it is funded and has passed a live test on mainnet."><i></i><span>Vault closed</span></span>
+    <div class="wrap-w"><button class="chip" id="wBtn" type="button"><i class="dot"></i><span>Connect</span></button><div class="wmenu" id="wMenu"></div></div>
+  </div>
+</header>
+
+<main class="desk" id="desk">
+  <section class="p chartp">
+    <div class="ph-bar">
+      <div class="tfs" id="tfs"><button data-tf="1m">1m</button><button data-tf="5m">5m</button><button data-tf="15m" class="on">15m</button><button data-tf="1h">1h</button><button data-tf="4h">4h</button><button data-tf="1d">1D</button></div>
+      <div class="ohlc mono" id="ohlc"></div>
+      <span class="local"><i></i>Your lines stay on this screen</span>
+    </div>
+    <canvas id="chart"></canvas>
+  </section>
+
+  <section class="p bookp">
+    <div class="tabs" id="bookTabs"><button class="on" data-t="book">Book</button><button data-t="trades">Trades</button><button data-t="depth">Depth</button><span class="live" id="dLive"><i></i><em>live</em></span></div>
+    <div class="dbook" id="dBook"><div class="ph">Reading the book…</div></div>
+    <div class="dtrades" id="dTrades" hidden><div class="ph">Waiting for trades…</div></div>
+    <div class="ddepth" id="dDepth" hidden><canvas id="depth"></canvas><div class="dd-l mono" id="ddL"></div></div>
+  </section>
+
+  <section class="p ticket" id="ticket">
+    <div class="side" id="side"><button class="on long" data-s="long">Long</button><button class="short" data-s="short">Short</button></div>
+    <div class="types" id="types"><button class="on" data-o="market">Market</button><button data-o="limit">Limit</button><button data-o="stop">Stop</button></div>
+    <label class="fld" id="pxRow" hidden><span id="pxLbl">Limit price</span><div class="inp"><input id="tPx" inputmode="decimal" autocomplete="off" placeholder="0.00"><button type="button" id="midBtn">Mid</button></div></label>
+    <label class="fld"><span>Size</span><div class="inp"><input id="tSize" inputmode="decimal" autocomplete="off" placeholder="0.00"><em>USD</em></div><small class="mono" id="tCoins">—</small></label>
+    <div class="fld"><span>Leverage <b class="mono" id="tLevV">10x</b></span><input type="range" id="tLev" min="1" max="20" value="10"><div class="levmarks mono" id="levMarks"></div></div>
+    <div class="tpsl">
+      <label class="fld"><span>Take profit</span><div class="inp"><input id="tTp" inputmode="decimal" autocomplete="off" placeholder="price"></div><small class="mono" id="tTpP"></small></label>
+      <label class="fld"><span>Stop</span><div class="inp"><input id="tSl" inputmode="decimal" autocomplete="off" placeholder="price"></div><small class="mono" id="tSlP"></small></label>
+    </div>
+    <div class="sum mono" id="sum">
+      <div><span>Entry</span><b id="uEntry">—</b></div>
+      <div><span>Margin</span><b id="uMargin">—</b></div>
+      <div><span>Liquidation, about</span><b id="uLiq">—</b></div>
+      <div><span>Hyperliquid fee, about</span><b id="uFee">—</b></div>
+    </div>
+    <button class="btn place" id="place" type="button" disabled>Connect a wallet</button>
+    <p class="tnote" id="tnote">The vault opens once it is funded and has passed a live test on mainnet. Everything else on this desk is live.</p>
+  </section>
+
+  <section class="p sealedp" id="wallet">
+    <div class="tabs" id="sTabs"><button class="on" data-t="pos">Positions</button><button data-t="ord">Orders</button><button data-t="his">History</button><button data-t="fund">Funding</button><button data-t="priv">Private wallet</button><span class="seal-tag"><svg viewBox="0 0 12 12"><rect x="2" y="5" width="8" height="6" rx="1.4"/><path d="M4 5V3.6a2 2 0 0 1 4 0V5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>sealed book</span></div>
+    <div class="spane" data-p="pos"><div class="empty"><b>No positions.</b><span>When you trade, they land here, encrypted to you. Nobody else can read this book.</span></div></div>
+    <div class="spane" data-p="ord" hidden><div class="empty"><b>No open orders.</b><span>Limit and stop orders wait here until they fill or you cancel them.</span></div></div>
+    <div class="spane" data-p="his" hidden><div class="empty"><b>No history yet.</b><span>Every fill, funding payment and withdrawal will be listed here, for your eyes only.</span></div></div>
+    <div class="spane" data-p="fund" hidden><div class="fhist"><div class="fh-n mono" id="fhN">Reading funding history…</div><canvas id="fhist"></canvas></div></div>
+    <div class="spane" data-p="priv" hidden>
+      <div class="priv" id="priv">
+        <div class="pv-row"><span>Your wallet</span><b class="mono" id="pvOwner">not connected</b></div>
+        <div class="pv-row"><span>Private wallet</span><b class="mono" id="pvAddr">—</b></div>
+        <div class="pv-row"><span>On the Privacy Rings registry</span><b class="mono" id="pvReg">—</b></div>
+        <div class="pv-row"><span>Private balance</span><b class="mono">opens with the vault</b></div>
+        <div class="pv-act"><button class="btn btn-v btn-sm" id="pvDerive" type="button">Connect a wallet</button><span class="pv-msg" id="pvMsg">One signature derives it in this tab, with the Privacy Rings SDK. Nothing is sent.</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="picker" id="picker" role="dialog" aria-label="Markets" hidden>
+  <div class="pk">
+    <div class="pk-h"><input id="pkQ" placeholder="Search markets" autocomplete="off"><button type="button" id="pkX" aria-label="Close">×</button></div>
+    <div class="pk-l mono"><div class="pk-r pk-th"><span>Market</span><span>Price</span><span>24h</span><span class="hide-s">Volume</span></div><div id="pkRows"></div></div>
+  </div>
+</div>
+<div class="sr" aria-live="polite" id="sr"></div>
+<script type="module" src="/assets/js/desk.js?v=2"></script>
+</body>
+</html>

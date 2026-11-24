@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VELIUS</title>
+<meta name="description" content="Trade perps behind a veil. Hyperliquid's markets from Solana, and the chain never sees your size, entry, leverage or stops. Built on Helius Privacy Rings.">
+<meta name="theme-color" content="#07070b">
+<meta property="og:title" content="VELIUS">
+<meta property="og:description" content="Trade perps behind a veil. Built on Helius Privacy Rings.">
+<meta property="og:image" content="__SITE__/assets/img/og.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="__SITE__/assets/img/og.jpg">
+<link rel="icon" href="/assets/img/favicon.svg?v=2" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png?v=2" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=2">
+<link rel="preload" href="/assets/fonts/wide-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/disp-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/base.css?v=2">
+<link rel="stylesheet" href="/assets/css/home.css?v=2">
+</head>
+<body class="home">
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-glow"></div>
+  <svg class="intro-v" viewBox="250 270 500 480" xmlns="http://www.w3.org/2000/svg">
+    <defs><mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000"><rect x="0" y="0" width="1000" height="1000" fill="#fff"/><rect class="slit" x="262" y="474" width="476" height="30" fill="#000"/></mask></defs>
+    <g mask="url(#cut)">
+      <path class="arm l" d="M268 286 L400 286 L501.5 570 L501.5 734 L466 734 Z"/>
+      <path class="arm r" d="M600 286 L732 286 L534 734 L498.5 734 L498.5 570 Z"/>
+    </g>
+  </svg>
+  <div class="intro-name" id="introName">VELIUS</div>
+</div>
+
+<div class="progress" id="progress"></div>
+<header class="top" id="top">
+  <a class="brand" href="/" aria-label="Velius home"><img src="/assets/img/mark.svg?v=1" alt=""><span class="word" id="brandWord">velius</span></a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#book">The book</a><a href="#tape">The tape</a><a href="#markets">Markets</a><a href="#funding">Funding</a><a href="#scan">Scan</a><a href="#vault">The vault</a><a href="#faq">FAQ</a>
+  </nav>
+  <div class="tools">
+    <div class="wrap-w"><button class="chip" id="wBtn" type="button"><i class="dot"></i><span>Connect</span></button><div class="wmenu" id="wMenu"></div></div>
+    <a class="btn btn-w btn-sm hide-xs" href="/desk">Open desk</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false"><i></i><i></i></button>
+  </div>
+</header>
+<div class="sheet" id="sheet">
+  <a href="#pulse">Right now</a><a href="#book">The book</a><a href="#tape">The tape</a><a href="#how">How it works</a><a href="#order">One order</a><a href="#markets">Markets</a><a href="#funding">Funding</a><a href="#desk">The desk</a><a href="#hidden">Hidden</a><a href="#scan">Scan</a><a href="#derive">Private wallet</a><a href="#risk">Risk</a><a href="#ring">The Ring</a><a href="#vault">The vault</a><a href="#hood">Under the hood</a><a href="#checks">Live checks</a><a href="#faq">FAQ</a><a href="/desk" class="go">Open desk →</a>
+</div>
+
+<nav class="rail" id="rail" aria-label="On this page">
+  <a href="#pulse"><b>01</b><span>Right now</span></a>
+  <a href="#book"><b>02</b><span>The book</span></a>
+  <a href="#tape"><b>03</b><span>The tape</span></a>
+  <a href="#how"><b>04</b><span>How it works</span></a>
+  <a href="#order"><b>05</b><span>One order</span></a>
+  <a href="#markets"><b>06</b><span>Markets</span></a>
+  <a href="#funding"><b>07</b><span>Funding</span></a>
+  <a href="#desk"><b>08</b><span>The desk</span></a>
+  <a href="#hidden"><b>09</b><span>Hidden</span></a>
+  <a href="#scan"><b>10</b><span>Scan</span></a>
+  <a href="#derive"><b>11</b><span>Private wallet</span></a>
+  <a href="#risk"><b>12</b><span>Risk</span></a>
+  <a href="#ring"><b>13</b><span>The Ring</span></a>
+  <a href="#vault"><b>14</b><span>The vault</span></a>
+  <a href="#hood"><b>15</b><span>Under the hood</span></a>
+  <a href="#checks"><b>16</b><span>Live checks</span></a>
+  <a href="#faq"><b>17</b><span>FAQ</span></a>
+</nav>
+
+<main>
+<section class="hero" id="hero">
+  <canvas id="veil" aria-hidden="true"></canvas>
+  <div class="hero-in">
+    <h1 class="name" id="name">VELIUS</h1>
+    <div class="cta">
+      <a class="btn btn-w btn-lg" href="/desk">Open the desk</a>
+      <a class="btn btn-g btn-lg" href="#how">How it works</a>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="built"><i class="hring" aria-hidden="true"></i>Built on Helius Privacy Rings</div>
+  </div>
+  <a class="cue" href="#book" aria-label="Scroll to the book"><i></i></a>
+</section>
+
+<section class="band pulse" id="pulse">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">01 — Right now</span><h2>Hyperliquid, <em>this minute.</em></h2></div>
+    <div class="stat6 rv">
+      <div class="st spot"><span>Volume, 24h</span><b class="mono" data-s="vol">—</b><small>every perp</small></div>
+      <div class="st spot"><span>Open interest</span><b class="mono" data-s="oi">—</b><small>every perp</small></div>
+      <div class="st spot"><span>Perps listed</span><b class="mono" data-s="n">—</b><small>on Hyperliquid</small></div>
+      <div class="st spot"><span>BTC funding</span><b class="mono" data-s="fund">—</b><small data-s="apr">per hour</small></div>
+      <div class="st spot"><span>Next funding</span><b class="mono" data-s="next">—</b><small>paid every hour</small></div>
+      <div class="st spot"><span>Through the Ring</span><b class="mono" data-s="ring">—</b><small>transactions, last hour</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="band dim" id="book">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">02 — The book</span><h2>The book sees the vault. <em>Never you.</em></h2><p class="lede">A public order book shows every order to everyone. On Velius, the vault places them for you, so the book sees one name.</p></div>
+    <div class="twin rv">
+      <div class="pane spot">
+        <div class="pane-h"><span>What the public sees</span><span class="live" id="pubLive"><i></i><em>live</em></span></div>
+        <div class="pub-sym"><b id="pubCoin">BTC</b><span>Hyperliquid order book</span>
+          <div class="seg" id="pubPick"><button class="on" data-c="BTC">BTC</button><button data-c="ETH">ETH</button><button data-c="SOL">SOL</button><button data-c="HYPE">HYPE</button></div></div>
+        <div class="obook" id="pubBook"><div class="ph">Reading the book…</div></div>
+      </div>
+      <div class="pane pane-v spot">
+        <div class="pane-h"><span>What only you see</span><span class="seal-tag"><svg viewBox="0 0 12 12"><rect x="2" y="5" width="8" height="6" rx="1.4"/><path d="M4 5V3.6a2 2 0 0 1 4 0V5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>sealed</span></div>
+        <div class="sealed">
+          <div><span>Side</span><b class="mono" data-cipher="4"></b></div>
+          <div><span>Size</span><b class="mono" data-cipher="9"></b></div>
+          <div><span>Entry</span><b class="mono" data-cipher="8"></b></div>
+          <div><span>Leverage</span><b class="mono" data-cipher="3"></b></div>
+          <div><span>Liquidation</span><b class="mono" data-cipher="8"></b></div>
+          <div><span>Take profit</span><b class="mono" data-cipher="8"></b></div>
+          <div><span>Stop</span><b class="mono" data-cipher="8"></b></div>
+          <div><span>PnL</span><b class="mono" data-cipher="7"></b></div>
+        </div>
+        <div class="pane-f">Sealed in your book. They open on your screen, and nowhere else.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="tape">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eb">03 — The tape</span>
+      <h2>Every fill is printed <em>for everyone.</em></h2>
+      <p class="lede">Hyperliquid's public tape, live. Each line is someone's trade, out in the open. Through Velius, the line says vault.</p>
+      <div class="tape-n"><div><b class="mono" id="tpN">—</b><span>prints, last minute</span></div><div><b class="mono" id="tpV">—</b><span>traded, last minute</span></div><div><b class="mono" id="tpW">—</b><span>over $100K</span></div></div>
+    </div>
+    <div class="tapebox rv spot"><div class="tape-h mono"><span>Market</span><span>Side</span><span>Price</span><span>Value</span><span>Time</span></div><div id="tapeRows"><div class="ph">Listening to the tape…</div></div></div>
+  </div>
+</section>
+
+<section class="band dim" id="how">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">04 — How it works</span><h2>Four moves. <em>One veil.</em></h2></div>
+    <ol class="steps rv">
+      <li class="spot"><span class="n mono">01</span><h3>Connect</h3><p>Phantom, Solflare or Backpack. Velius never asks for your keys.</p></li>
+      <li class="spot"><span class="n mono">02</span><h3>Derive</h3><p>One signature makes your private wallet on Privacy Rings, in this tab.</p></li>
+      <li class="spot"><span class="n mono">03</span><h3>Deposit</h3><p>USDC moves to the vault as a private transfer. The amount is encrypted.</p></li>
+      <li class="spot"><span class="n mono">04</span><h3>Trade</h3><p>The vault fills you at Hyperliquid's price. Withdraw with your own signature.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="band" id="order">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">05 — One order, start to finish</span><h2>What happens when you <em>press Long.</em></h2></div>
+    <div class="flow rv">
+      <div class="fl spot"><span class="mono">0.0s</span><h3>You sign</h3><p>Your trading key signs the order in your browser. It can trade. It can never withdraw.</p></div>
+      <div class="fl spot"><span class="mono">then</span><h3>The vault checks</h3><p>Your margin, your leverage cap and the market's own limits, against Hyperliquid's live book.</p></div>
+      <div class="fl spot"><span class="mono">then</span><h3>It mirrors</h3><p>The same order goes to Hyperliquid in the vault's name. The public book sees the vault.</p></div>
+      <div class="fl spot"><span class="mono">then</span><h3>You're filled</h3><p>At Hyperliquid's price. The fill lands in your sealed book, encrypted to you.</p></div>
+      <div class="fl spot"><span class="mono">after</span><h3>It watches</h3><p>Take profit, stop and liquidation are watched for you, and closed at Hyperliquid's price.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band dim" id="markets">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">06 — Markets</span><h2>Hyperliquid's perps. <em>Live.</em></h2></div>
+    <div class="mk rv" id="mk">
+      <div class="mk-h mono"><span>Market</span><span>Price</span><span>24h</span><span class="hide-s">Funding 1h</span><span class="hide-s">Open interest</span><span class="hide-m">Volume 24h</span></div>
+      <div id="mkRows"><div class="ph">Reading Hyperliquid…</div></div>
+    </div>
+    <div class="mk-f rv"><span class="mono" id="mkCount"></span><a class="btn btn-g" href="/desk">Trade them on the desk →</a></div>
+  </div>
+</section>
+
+<section class="band" id="funding">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">07 — Funding</span><h2>Who pays whom, <em>this hour.</em></h2><p class="lede">Perps stay close to the real price because one side pays the other every hour. These are the biggest payers right now, across every Hyperliquid perp, as a yearly rate.</p></div>
+    <div class="fund rv">
+      <div class="fcol spot"><div class="fh"><span>Longs pay shorts</span><em class="mono">per year</em></div><div id="fundPos"><div class="ph">Reading funding…</div></div></div>
+      <div class="fcol spot"><div class="fh"><span>Shorts pay longs</span><em class="mono">per year</em></div><div id="fundNeg"><div class="ph">Reading funding…</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band dim" id="desk">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eb">08 — The desk</span>
+      <h2>A full desk, <em>for one.</em></h2>
+      <ul class="ticks">
+        <li>Market, limit and stop orders</li>
+        <li>Take profit and stop, dragged right on the chart</li>
+        <li>Up to 20x, isolated</li>
+        <li>Live book, trades and funding from Hyperliquid</li>
+        <li>Your positions in a sealed book</li>
+      </ul>
+      <a class="btn btn-w" href="/desk">Open the desk</a>
+    </div>
+    <div class="mini rv spot">
+      <div class="mini-h"><b>BTC</b><span class="mono" id="miniPx">—</span><span class="mono" id="miniChg"></span><span class="tf mono">15m · live</span></div>
+      <canvas id="mini"></canvas>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="hidden">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">09 — What stays hidden</span><h2>Who sees <em>what.</em></h2></div>
+    <div class="tbl rv">
+      <div class="tr th"><span></span><span>Hyperliquid's book</span><span>Solana</span><span>Your screen</span></div>
+      <div class="tr"><span>Your wallet</span><span class="no">never</span><span class="part">sends to the vault</span><span class="yes">yours</span></div>
+      <div class="tr"><span>What you deposit</span><span class="no">never</span><span class="part">encrypted in the Ring</span><span class="yes">yours</span></div>
+      <div class="tr"><span>Side and size</span><span class="part">the vault's total</span><span class="no">never</span><span class="yes">yours</span></div>
+      <div class="tr"><span>Entry and leverage</span><span class="no">never</span><span class="no">never</span><span class="yes">yours</span></div>
+      <div class="tr"><span>Liquidation price</span><span class="no">never</span><span class="no">never</span><span class="yes">yours</span></div>
+      <div class="tr"><span>Take profit and stop</span><span class="no">never</span><span class="no">never</span><span class="yes">yours</span></div>
+    </div>
+    <p class="note rv">Moving money into your private balance is a normal, public Solana deposit. Everything after it is encrypted.</p>
+  </div>
+</section>
+
+<section class="band dim" id="scan">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eb">10 — Scan</span>
+      <h2>What the chain knows <em>about you.</em></h2>
+      <p class="lede">Paste any Solana address. This is what anyone can read about it, right now. Inside the Ring, none of it shows.</p>
+      <form class="scanf" id="scanF"><input id="scanQ" placeholder="Solana address" autocomplete="off" spellcheck="false" aria-label="Solana address"><button class="btn btn-w" type="submit">Scan</button></form>
+      <button class="mine" id="scanMine" type="button">Scan my connected wallet →</button>
+    </div>
+    <div class="scanout rv spot" id="scanOut"><div class="ph">The result shows up here. Nothing is stored.</div></div>
+  </div>
+</section>
+
+<section class="band" id="derive">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eb">11 — Your private wallet</span>
+      <h2>One signature. <em>Your own veil.</em></h2>
+      <p class="lede">Connect, sign one message, and the Privacy Rings SDK derives your private wallet right here, in this tab. No seed is made or stored, and nothing is sent.</p>
+    </div>
+    <div class="dv rv spot">
+      <div class="dv-step" id="dv1"><i>1</i><div><b>Connect a Solana wallet</b><span id="dv1s">Phantom, Solflare or Backpack</span></div></div>
+      <div class="dv-step" id="dv2"><i>2</i><div><b>Sign one message</b><span>It proves the wallet is yours. It moves nothing.</span></div></div>
+      <div class="dv-step" id="dv3"><i>3</i><div><b>Your private wallet</b><span class="mono" id="dvAddr">appears here</span></div></div>
+      <div class="dv-step" id="dv4"><i>4</i><div><b>On the Privacy Rings registry</b><span class="mono" id="dvReg">—</span></div></div>
+      <div class="dv-go"><button class="btn btn-v" id="dvBtn" type="button">Connect a wallet</button><span class="dv-msg" id="dvMsg"></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band dim" id="risk">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">12 — Risk</span><h2>Leverage cuts <em>both ways.</em></h2></div>
+    <div class="cards c3 rv">
+      <div class="card spot"><h3>Isolated margin</h3><p>Each position has its own margin. A bad trade can only lose what you put behind it.</p></div>
+      <div class="card spot"><h3>Liquidation at the mark</h3><p>Positions close at Hyperliquid's mark price when margin runs out, the same rule Hyperliquid uses.</p></div>
+      <div class="card spot"><h3>Funding, every hour</h3><p>Longs and shorts pay each other Hyperliquid's hourly funding rate, shown live on the desk.</p></div>
+    </div>
+    <div class="calc rv spot" id="calc">
+      <div class="calc-in">
+        <label>Market<select id="cMk"><option>BTC</option><option>ETH</option><option>SOL</option><option>HYPE</option></select></label>
+        <label>Side<div class="seg" id="cSide"><button class="on" data-s="long">Long</button><button data-s="short">Short</button></div></label>
+        <label>Leverage <b class="mono" id="cLevV">10x</b><input type="range" id="cLev" min="1" max="20" value="10"></label>
+      </div>
+      <div class="calc-out">
+        <div><span>Entry, at the live mark</span><b class="mono" id="cEntry">—</b></div>
+        <div><span>Liquidation, about</span><b class="mono" id="cLiq">—</b></div>
+        <div><span>Move to liquidation</span><b class="mono" id="cMove">—</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="ring">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eb">13 — The Ring</span>
+      <h2>Privacy Rings, <em>live on mainnet.</em></h2>
+      <p class="lede">Helius's shielded pool on Solana. These are the latest transactions through it, read from the chain just now. Anyone can see them happen. Nobody can read what moved.</p>
+    </div>
+    <div class="ringbox rv spot off" id="ringBox">
+      <div class="rb-n"><div><b class="mono" data-r="hour">—</b><span>last hour</span></div><div><b class="mono" data-r="day">—</b><span>last 24 hours</span></div></div>
+      <div class="rb-l" data-r="list"><div class="ph">Reading the Ring…</div></div>
+      <div class="rb-f"><i class="hring" aria-hidden="true"></i><span class="mono">ring1GaLC…ANW</span><a href="https://solscan.io/account/ring1GaLCuJnkUMVkX2JeZLTTX17wKsV4fZmPVzXANW" target="_blank" rel="noopener">Solscan ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="band dim" id="vault">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eb">14 — The vault</span>
+      <h2>The vault <em id="vaultWord">opens soon.</em></h2>
+      <p class="lede" id="vaultLede">It fills every order at Hyperliquid's price and mirrors it on Hyperliquid in its own name. It opens once it is funded and has passed a live test on mainnet.</p>
+    </div>
+    <ul class="roll rv" id="roll">
+      <li class="ok"><i></i><b>Live markets, book and charts</b><span>Works now</span></li>
+      <li class="ok"><i></i><b>Your private wallet on Privacy Rings</b><span>Works now</span></li>
+      <li id="rollVault"><i></i><b>Vault funded and tested on mainnet</b><span>Next</span></li>
+      <li id="rollOpen"><i></i><b>Deposits and orders open</b><span>Then</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="band" id="hood">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">15 — Under the hood</span><h2>Nothing to trust <em>that you can't check.</em></h2></div>
+    <div class="cards rv">
+      <div class="card spot"><h3>Privacy Rings</h3><p>Helius's shielded pool. Balances and transfers are encrypted on Solana, and the SDK runs in your browser.</p></div>
+      <div class="card spot"><h3>One signature</h3><p>Your private wallet is derived from a single wallet signature, in this tab. No seed is ever stored.</p></div>
+      <div class="card spot"><h3>The vault</h3><p>It trades on Hyperliquid in its own name, so the public book shows its total, never your order.</p></div>
+      <div class="card spot"><h3>A key that can't withdraw</h3><p>Your trading key places and cancels orders. Only your wallet's signature can take money out.</p></div>
+      <div class="card spot"><h3>Hyperliquid's price</h3><p>Every fill uses Hyperliquid's live book. Prices, candles and funding stream from its public API.</p></div>
+      <div class="card spot"><h3>Your lines stay local</h3><p>Entry, take profit and stop are drawn on your screen. They never leave it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band dim" id="checks">
+  <div class="wrap">
+    <div class="head rv"><span class="eb">16 — Live checks</span><h2>Read just now, <em>from the source.</em></h2></div>
+    <div class="checks rv" id="checksGrid">
+      <div class="ck spot" data-k="hl"><span>Hyperliquid API</span><b class="v mono">—</b><small>round trip from this page</small></div>
+      <div class="ck spot" data-k="ws"><span>Live stream</span><b class="v mono">—</b><small>Hyperliquid websocket</small></div>
+      <div class="ck spot" data-k="slot"><span>Solana slot</span><b class="v mono">—</b><small>mainnet</small></div>
+      <div class="ck spot" data-k="ring"><span>Privacy Rings program</span><b class="v mono">—</b><small></small></div>
+      <div class="ck spot" data-k="registry"><span>Address registry</span><b class="v mono">—</b><small></small></div>
+      <div class="ck spot" data-k="vault"><span>Velius vault</span><b class="v mono">—</b><small></small></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="faq">
+  <div class="wrap narrow">
+    <div class="head rv"><span class="eb">17 — FAQ</span><h2>Questions</h2></div>
+    <div class="faq rv">
+      <details><summary>What is Velius?</summary><p>Private perp trading on Solana. You trade Hyperliquid's markets at Hyperliquid's price, and your positions sit in a sealed book that only you can read.</p></details>
+      <details><summary>How is it private?</summary><p>The vault places every order on Hyperliquid in its own name, so the public book shows the vault's total, never your trade. Money moves through Helius Privacy Rings, where amounts are encrypted.</p></details>
+      <details><summary>What can people still see?</summary><p>That your wallet uses Privacy Rings and sends to the vault. Not how much, and not what you trade. Your first move into a private balance is a normal, public deposit.</p></details>
+      <details><summary>Who holds the money?</summary><p>The vault holds trading funds, like any exchange does. Your trading key can trade but never withdraw, and withdrawals need your own wallet's signature. Only trade what you can afford to lose.</p></details>
+      <details><summary>When can I trade?</summary><p>When the vault is funded and has passed a live test on mainnet. The desk, the live markets and your private wallet work today.</p></details>
+      <details><summary>Which markets, and how much leverage?</summary><p>The perps listed on Hyperliquid, up to 20x and isolated. Where Hyperliquid allows less, so does Velius.</p></details>
+      <details><summary>Does Velius see my data?</summary><p>Market data streams from Hyperliquid's public API to your browser. Your lines and your private wallet are made in this tab. There are no cookies and no analytics.</p></details>
+      <details><summary>Is Velius part of Helius or Hyperliquid?</summary><p>No. Velius is independent. It is built on Privacy Rings, the shielded pool Helius publishes as an open SDK, and reads Hyperliquid's public markets.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="end" id="end">
+  <canvas id="endSilk" aria-hidden="true"></canvas>
+  <div class="end-in rv">
+    <h2 class="end-h">Lift the <em>veil.</em></h2>
+    <a class="btn btn-w btn-lg" href="/desk">Open the desk</a>
+    <div class="built"><i class="hring" aria-hidden="true"></i>Built on Helius Privacy Rings</div>
+  </div>
+</section>
+</main>
+<div class="sr" aria-live="polite" id="sr"></div>
+<script type="module" src="/assets/js/home.js?v=2"></script>
+</body>
+</html>

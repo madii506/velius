@@ -1,0 +1,18 @@
+{
+  "name": "velius",
+  "version": "1.0.0",
+  "description": "Trade perps behind a veil. Hyperliquid's markets from Solana, built on Helius Privacy Rings.",
+  "scripts": {
+    "build:assets": "sh build.sh",
+    "dev": "MOCK=1 node dev/server.cjs"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@heliuslabs/zolana": "^0.8.0-alpha",
+    "@solana/kit": "^8.6.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}
