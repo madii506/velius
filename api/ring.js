@@ -6,10 +6,12 @@ const PAGES = 4;                     // up to 4,000 signatures, enough for a ful
 let cache = null, at = 0;
 module.exports = async (req, res) => {
   try {
-    if (cache && Date.now() - at < 30000) return L.send(res, 200, cache, 'public, max-age=20');
-    const now = Math.floor(Date.now() / 1000);
+    const CC = 'public, max-age=20, s-maxage=60, stale-while-revalidate=600';     // the edge answers at once and refreshes in the background
+    if (cache && Date.now() - at < 30000) return L.send(res, 200, cache, CC);
+    const now = Math.floor(Date.now() / 1000), t0 = Date.now();
     let sigs = [], before = null, complete = false;
     for (let p = 0; p < PAGES; p++) {
+      if (p && Date.now() - t0 > 9000) break;          // stay well inside the function's time limit; older hours then read as unknown
       const batch = (await L.rpc('getSignaturesForAddress', [RING, before ? { limit: 1000, before } : { limit: 1000 }])) || [];
       sigs = sigs.concat(batch);
       const last = batch[batch.length - 1];
@@ -31,6 +33,6 @@ module.exports = async (req, res) => {
       at: Date.now(),
     };
     at = Date.now();
-    L.send(res, 200, cache, 'public, max-age=20');
+    L.send(res, 200, cache, CC);
   } catch (e) { L.send(res, 502, { error: String(e.message || e) }); }
 };

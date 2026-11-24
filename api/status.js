@@ -6,6 +6,6 @@ module.exports = async (req, res) => {
     const [acc, slot] = await Promise.all([L.rpc('getMultipleAccounts', [Object.values(ADDR), { encoding: 'base64', dataSlice: { offset: 0, length: 0 } }]), L.rpc('getSlot', [{ commitment: 'confirmed' }])]);
     const out = { slot, vault: L.VAULT(), at: Date.now() };
     Object.keys(ADDR).forEach((k, i) => { const a = acc.value[i]; out[k] = { address: ADDR[k], ok: !!a, executable: a ? !!a.executable : false, owner: a ? a.owner : null }; });
-    L.send(res, 200, out, 'public, max-age=10');
+    L.send(res, 200, out, 'public, max-age=10, s-maxage=15, stale-while-revalidate=120');
   } catch (e) { L.send(res, 502, { error: String(e.message || e), vault: L.VAULT() }); }
 };
